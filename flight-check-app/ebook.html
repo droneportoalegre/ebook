@@ -357,11 +357,10 @@
   <header class="hero shell no-print">
     <p class="tag">DroneOps Check</p>
     <h1>Drone Legal Brasil - eBook</h1>
-    <p class="lead">Leitor com sumário automático e impressão otimizada para salvar em PDF.</p>
+    <p class="lead">Leitor com sumário automático e download direto do PDF final.</p>
     <div class="actions">
       <a class="btn btn-secondary" href="./index.html">Voltar para o App</a>
-      <button class="btn btn-primary" type="button" id="printBtn">Salvar em PDF</button>
-      <a class="btn btn-ghost" href="./assets/ebook-legislacao-drones-brasil-venda.pdf" target="_blank" rel="noopener noreferrer">Baixar PDF pronto</a>
+      <button class="btn btn-primary" type="button" onclick="downloadEbookPDF()">Baixar PDF do eBook</button>
     </div>
   </header>
 
@@ -397,10 +396,14 @@
     const contentEl = document.getElementById("bookContent");
     const tocEl = document.getElementById("tocList");
     const statusEl = document.getElementById("status");
-    const printBtn = document.getElementById("printBtn");
 
-    if (printBtn) {
-      printBtn.addEventListener("click", () => window.print());
+    function downloadEbookPDF() {
+      const link = document.createElement("a");
+      link.href = "./assets/ebook-legislacao-drones-brasil-venda.pdf";
+      link.download = "Drone-Legal-Brasil-eBook.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function setStatus(type, message) {
