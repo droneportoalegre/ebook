@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drone Legal Brasil | E-book</title>
+  <meta name="description" content="Domine a legislação de drones no Brasil com ANAC, DECEA, ANATEL e Seguro RETA. Do zero ao pró com foco em negócio e compliance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #14213d;
+      --ink-soft: #2f3e56;
+      --accent: #0a9396;
+      --accent-2: #ee9b00;
+      --paper: #f8f6f2;
+      --white: #ffffff;
+      --ok: #1f7a1f;
+      --shadow: 0 18px 40px rgba(20, 33, 61, 0.12);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Source Serif 4", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(10, 147, 150, 0.16), transparent 40%),
+        radial-gradient(circle at 90% 0%, rgba(238, 155, 0, 0.16), transparent 32%),
+        var(--paper);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    .hero {
+      padding: 4rem 0 2.5rem;
+    }
+
+    .hero-card {
+      background: var(--white);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      padding: clamp(1.25rem, 3.5vw, 3rem);
+      border: 1px solid rgba(20, 33, 61, 0.08);
+      transform: translateY(0);
+      animation: rise 600ms ease-out both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kicker {
+      display: inline-block;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      color: var(--accent);
+      margin-bottom: .65rem;
+    }
+
+    h1, h2, h3 {
+      font-family: "Montserrat", sans-serif;
+      line-height: 1.15;
+      margin: 0 0 .8rem;
+      color: var(--ink);
+    }
+
+    h1 { font-size: clamp(1.85rem, 5vw, 3.2rem); max-width: 900px; }
+    h2 { font-size: clamp(1.35rem, 3.1vw, 2rem); }
+
+    .sub {
+      font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+      color: var(--ink-soft);
+      max-width: 860px;
+      margin: 0 0 1rem;
+    }
+
+    .list {
+      display: grid;
+      gap: .45rem;
+      margin: 1rem 0 1.6rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li::before {
+      content: "✓";
+      color: var(--ok);
+      font-weight: 700;
+      margin-right: .5rem;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .85rem;
+      align-items: center;
+      margin-top: .7rem;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--accent), #19a5a8);
+      color: var(--white);
+      padding: .92rem 1.2rem;
+      border-radius: 999px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 10px 24px rgba(10, 147, 150, .25);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .meta {
+      color: var(--ink-soft);
+      font-size: .95rem;
+    }
+
+    section {
+      padding: 1.8rem 0;
+      animation: fade .8s ease both;
+      animation-delay: .08s;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-2 {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, .85);
+      border: 1px solid rgba(20, 33, 61, 0.1);
+      border-radius: var(--radius);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 10px 20px rgba(20, 33, 61, .06);
+    }
+
+    .offer {
+      background: linear-gradient(140deg, #0d3b66, #124f87);
+      color: var(--white);
+      border-radius: calc(var(--radius) + 6px);
+      padding: clamp(1.2rem, 3vw, 2.2rem);
+      box-shadow: var(--shadow);
+    }
+
+    .offer h2, .offer h3 { color: var(--white); }
+
+    .price {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin: .15rem 0 .7rem;
+      color: #ffe8b0;
+    }
+
+    .faq details {
+      background: var(--white);
+      border: 1px solid rgba(20, 33, 61, .12);
+      border-radius: 12px;
+      padding: .8rem .9rem;
+      margin-bottom: .55rem;
+    }
+
+    .faq summary {
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 2.2rem 0 2.5rem;
+      color: var(--ink-soft);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero { padding-top: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-card">
+      <span class="kicker">E-book profissional</span>
+      <h1>Pare de operar no escuro: domine a legislação de drones no Brasil e transforme voo em negócio escalável.</h1>
+      <p class="sub">Guia completo do zero ao pró com ANAC, DECEA, ANATEL e Seguro RETA, em linguagem para empreendedor e profundidade para especialista.</p>
+      <ul class="list">
+        <li>Entenda o que é obrigatório em cada missão.</li>
+        <li>Evite prejuízo com erro regulatório e documental.</li>
+        <li>Use conformidade como diferencial para fechar contratos melhores.</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn" href="https://SEU-CHECKOUT-AQUI" target="_blank" rel="noopener">Quero o Drone Legal Brasil agora</a>
+        <span class="meta">Acesso imediato em PDF + bônus práticos + garantia de 7 dias</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap grid-2">
+        <article class="card">
+          <h2>Se você trabalha com drone, isso já aconteceu:</h2>
+          <ul class="list">
+            <li>Operação travada por falta de autorização correta.</li>
+            <li>Cliente inseguro com responsabilidade jurídica.</li>
+            <li>Seguro contratado sem aderência ao risco real.</li>
+            <li>Crescimento sem processo, com passivo escondido.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Com este e-book você ganha um método:</h2>
+          <ul class="list">
+            <li>Trilha Empreendedor: linguagem clara, foco em execução e venda.</li>
+            <li>Trilha Especialista: fundamento normativo e governança operacional.</li>
+            <li>Checklists e plano 30/60/90 dias para implementação real.</li>
+            <li>Estrutura para operar pronto para fiscalização e auditoria.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>O que você recebe hoje</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Produto principal</h3>
+            <p>E-book <strong>Drone Legal Brasil</strong> completo, do zero ao pró, com foco no contexto regulatório brasileiro.</p>
+          </article>
+          <article class="card">
+            <h3>Bônus incluídos</h3>
+            <ul class="list">
+              <li>Checklist Mestre de Missão.</li>
+              <li>Plano de Implementação 30/60/90 dias.</li>
+              <li>Script de posicionamento comercial premium.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Sobre o instrutor</h2>
+        <div class="card">
+          <ul class="list">
+            <li>Fotojornalista há mais de 20 anos, com publicações em Folha de S.Paulo, Zero Hora, O Globo, Revista Veja, The New York Times e The Guardian.</li>
+            <li>Mais de 920 alunos instruídos em cursos de RPA (particular e in company).</li>
+            <li>Instrutor do Batalhão de Aviação da Brigada Militar do RS, com mais de 60 alunos na disciplina Segurança de Voo pelo CFAER.</li>
+            <li>Instrutor no SENAC em turmas de Pilotagem de Drone e colaborador em cursos para PM-SP, Polícia Federal (GPI) e PRF.</li>
+            <li>Atuação com drone desde 2012 em inspeção, audiovisual e segurança, com gravações para SBT, Record, Globo, GloboNews, Discovery Channel e NHK.</li>
+            <li>Certificações pelo IFSP (Regulamentação e Operação de Drones) e ESPM/RS (Direção de Cinema).</li>
+            <li>Participação em testes de tecnologia anti-drone para o Ministério da Defesa, em simulações em Congonhas e base da FAB em São José dos Campos (SP), em 2019.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap offer">
+        <h2>Oferta de lançamento</h2>
+        <p>Você leva o e-book completo + 3 bônus práticos para implementar imediatamente.</p>
+        <div class="price">R$ 97,00</div>
+        <p>Um único erro regulatório já pode custar muito mais que este investimento.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://SEU-CHECKOUT-AQUI" target="_blank" rel="noopener">Quero me tornar uma operação de referência</a>
+          <span class="meta" style="color:#dbe7ff;">Compra segura | Acesso imediato | Garantia de 7 dias</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap faq">
+        <h2>Perguntas frequentes</h2>
+        <details>
+          <summary>Serve para quem está começando do zero?</summary>
+          <p>Sim. O conteúdo foi desenhado com trilha didática para iniciantes e aplicação prática imediata.</p>
+        </details>
+        <details>
+          <summary>Serve para quem já opera com equipe?</summary>
+          <p>Sim. A trilha avançada aprofunda governança, risco e compliance para escalar com controle.</p>
+        </details>
+        <details>
+          <summary>O conteúdo é superficial?</summary>
+          <p>Não. O foco é profundidade aplicada ao cenário brasileiro, sem resumo raso.</p>
+        </details>
+        <details>
+          <summary>Recebo acesso quando?</summary>
+          <p>Imediatamente após a confirmação do pagamento no checkout.</p>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap hero-card">
+        <h2>Você pode continuar no improviso ou operar com padrão profissional.</h2>
+        <p class="sub">Quem combina técnica, conformidade e negócio fecha melhores contratos e escala com previsibilidade.</p>
+        <a class="btn" href="https://SEU-CHECKOUT-AQUI" target="_blank" rel="noopener">Quero o Drone Legal Brasil com acesso imediato</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Drone Legal Brasil</strong> | Wesley Santos</p>
+      <p>Baseado em referências oficiais ANAC, DECEA, ANATEL e legislação aplicável. Material educacional.</p>
+      <p>Suporte: <a href="mailto:seuemail@dominio.com">seuemail@dominio.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>

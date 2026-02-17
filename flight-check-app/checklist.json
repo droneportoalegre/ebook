@@ -1,0 +1,42 @@
+{
+  "phases": [
+    {
+      "name": "Pré-voo",
+      "items": [
+        "Baterias carregadas",
+        "Hélices inspecionadas",
+        "Cartão de memória",
+        "Firmware verificado",
+        "Controle carregado"
+      ]
+    },
+    {
+      "name": "Regulatório",
+      "items": [
+        "SISANT",
+        "SARPAS",
+        "ANATEL",
+        "RETA"
+      ]
+    },
+    {
+      "name": "Operacional",
+      "items": [
+        "Risco de solo",
+        "Pessoas não anuentes",
+        "Plano de emergência",
+        "RTH definido"
+      ]
+    },
+    {
+      "name": "Registro de missão",
+      "items": [
+        "Drone",
+        "Piloto",
+        "Cliente",
+        "Local",
+        "Observações"
+      ]
+    }
+  ]
+}
