@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drone Legal Brasil - eBook</title>
+  <meta name="description" content="Leitor do eBook Drone Legal Brasil com sumário e modo de impressão para salvar em PDF." />
+  <meta name="theme-color" content="#103254" />
+  <link rel="icon" href="./assets/icon-droneops.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;700&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --ink: #15273f;
+      --ink-soft: #4a607d;
+      --line: #d3d9e2;
+      --brand: #0f766e;
+      --brand-dark: #103254;
+      --card: #ffffff;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0 0, #d8efe9 0, transparent 35%),
+        radial-gradient(circle at 100% 10%, #fee7b2 0, transparent 30%),
+        var(--bg);
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 1.5rem));
+      margin-inline: auto;
+    }
+
+    .hero {
+      margin-top: 1rem;
+      padding: 1.4rem;
+      border-radius: 24px;
+      color: #fff;
+      background: linear-gradient(130deg, var(--brand-dark), #1d4f7b);
+    }
+
+    .tag {
+      margin: 0;
+      font: 700 0.75rem/1 "Barlow", sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8be7d6;
+    }
+
+    .hero h1 {
+      margin: 0.45rem 0;
+      font: 800 clamp(1.35rem, 3.8vw, 2.2rem)/1.12 "Barlow", sans-serif;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 70ch;
+      opacity: 0.95;
+    }
+
+    .actions {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.62rem 0.95rem;
+      font: 700 0.84rem/1 "Barlow", sans-serif;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(130deg, #15a394, var(--brand));
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #e7f1fb;
+      color: #15324d;
+    }
+
+    .btn-ghost {
+      background: #fff7e8;
+      color: #7c4a03;
+      border: 1px solid #f8d99d;
+    }
+
+    .status {
+      margin: 0.8rem auto 0;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #f8fbff;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .status.error {
+      background: #fff1f1;
+      border-color: #f3c9c9;
+      color: #8b1c1c;
+    }
+
+    .reader-wrap {
+      margin: 1rem auto 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 14px 28px rgba(19, 36, 59, 0.08);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 70vh;
+    }
+
+    .toc {
+      border-right: 1px solid #e4eaf2;
+      padding: 1rem;
+      background: #fbfdff;
+      position: sticky;
+      top: 0;
+      max-height: 100vh;
+      overflow: auto;
+    }
+
+    .toc h2 {
+      margin: 0 0 0.6rem;
+      font: 800 1rem/1.1 "Barlow", sans-serif;
+      color: #102f4a;
+    }
+
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.28rem;
+    }
+
+    .toc-link {
+      display: block;
+      text-decoration: none;
+      color: #1d3e5f;
+      font-size: 0.9rem;
+      line-height: 1.35;
+      padding: 0.2rem 0.3rem;
+      border-radius: 8px;
+    }
+
+    .toc-link:hover {
+      background: #eaf3ff;
+      color: #102f4a;
+    }
+
+    .toc-h3 {
+      padding-left: 0.9rem;
+      font-size: 0.84rem;
+      color: #49627d;
+    }
+
+    .book-pane {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .reader-meta {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid #e5eaf2;
+      background: #f8fbff;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+    }
+
+    .book-body {
+      padding: 1.25rem;
+      font: 400 1.06rem/1.68 "Literata", serif;
+      color: #182940;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .book-body h1,
+    .book-body h2,
+    .book-body h3 {
+      margin-top: 1.4em;
+      margin-bottom: 0.45em;
+      color: #102f4a;
+      line-height: 1.22;
+      font-family: "Barlow", sans-serif;
+      scroll-margin-top: 16px;
+    }
+
+    .book-body h1 { font-size: 1.65rem; }
+    .book-body h2 { font-size: 1.35rem; }
+    .book-body h3 { font-size: 1.1rem; }
+    .book-body p { margin: 0.65rem 0; }
+    .book-body ul, .book-body ol { margin: 0.5rem 0 0.8rem 1.2rem; }
+    .book-body li { margin: 0.25rem 0; }
+    .book-body strong { color: #0d3554; }
+    .book-body hr { border: 0; border-top: 1px solid #d8e1ed; margin: 1.4rem 0; }
+    .book-body blockquote {
+      margin: 0.9rem 0;
+      padding: 0.55rem 0.85rem;
+      border-left: 4px solid #93b8d6;
+      background: #f8fbff;
+      color: #27455f;
+    }
+
+    .book-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+
+    .book-body th,
+    .book-body td {
+      border: 1px solid #dbe2ec;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .book-body th {
+      background: #f2f7ff;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-weight: 700;
+      color: #173755;
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 960px) {
+      .reader-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid #e4eaf2;
+      }
+
+      .book-body {
+        padding: 0.95rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media print {
+      @page { margin: 18mm; }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-family: "Times New Roman", serif;
+      }
+
+      .no-print,
+      .toc,
+      .status,
+      .reader-meta {
+        display: none !important;
+      }
+
+      .print-only { display: block !important; }
+
+      .shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      .reader-wrap,
+      .book-pane {
+        border: 0;
+        box-shadow: none;
+        margin: 0;
+        display: block;
+      }
+
+      .book-body {
+        padding: 0;
+        font: 400 12pt/1.55 "Times New Roman", serif;
+        color: #000;
+        max-width: none;
+      }
+
+      .book-body h1,
+      .book-body h2,
+      .book-body h3 {
+        color: #000;
+        page-break-after: avoid;
+      }
+
+      .book-body h1,
+      .book-body h2 {
+        page-break-before: always;
+      }
+
+      .book-body h1:first-of-type {
+        page-break-before: auto;
+      }
+
+      .book-body p,
+      .book-body li {
+        orphans: 3;
+        widows: 3;
+      }
+
+      a,
+      a:visited {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a[href]::after {
+        content: "" !important;
+      }
+
+      .print-header,
+      .print-footer {
+        font: 700 10pt/1.2 "Times New Roman", serif;
+        color: #333;
+      }
+
+      .print-header {
+        margin-bottom: 6mm;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 2mm;
+      }
+
+      .print-footer {
+        margin-top: 8mm;
+        border-top: 1px solid #aaa;
+        padding-top: 2mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero shell no-print">
+    <p class="tag">DroneOps Check</p>
+    <h1>Drone Legal Brasil - eBook</h1>
+    <p class="lead">Leitor com sumário automático e impressão otimizada para salvar em PDF.</p>
+    <div class="actions">
+      <a class="btn btn-secondary" href="./index.html">Voltar para o App</a>
+      <button class="btn btn-primary" type="button" id="printBtn">Salvar em PDF</button>
+      <a class="btn btn-ghost" href="./assets/ebook-legislacao-drones-brasil-venda.pdf" target="_blank" rel="noopener noreferrer">Baixar PDF pronto</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <p id="status" class="status">Carregando eBook...</p>
+  </main>
+
+  <section class="shell reader-wrap">
+    <aside class="toc no-print" aria-label="Sumário do eBook">
+      <h2>Sumário</h2>
+      <nav id="tocList" class="toc-list" aria-label="Navegação por capítulos">
+        <p class="status">Aguardando conteúdo...</p>
+      </nav>
+    </aside>
+
+    <div class="book-pane">
+      <div class="reader-meta no-print">
+        Fonte principal: <code>../ebook-legislacao-drones-brasil-pronto-para-venda.md</code>
+      </div>
+      <div class="print-header print-only">Drone Legal Brasil - eBook</div>
+      <article id="bookContent" class="book-body">
+        <p>Carregando eBook...</p>
+      </article>
+      <div class="print-footer print-only">Versao de leitura/impressao - DroneOps Check</div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const MARKDOWN_PRIMARY = "../ebook-legislacao-drones-brasil-pronto-para-venda.md";
+    const MARKDOWN_FALLBACK = "./assets/ebook-legislacao-drones-brasil-pronto-para-venda.md";
+
+    const contentEl = document.getElementById("bookContent");
+    const tocEl = document.getElementById("tocList");
+    const statusEl = document.getElementById("status");
+    const printBtn = document.getElementById("printBtn");
+
+    if (printBtn) {
+      printBtn.addEventListener("click", () => window.print());
+    }
+
+    function setStatus(type, message) {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.className = type === "error" ? "status error" : "status";
+      if (type === "ok") {
+        statusEl.style.display = "none";
+      } else {
+        statusEl.style.display = "block";
+      }
+    }
+
+    function slugify(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    }
+
+    function buildToc() {
+      const headings = Array.from(contentEl.querySelectorAll("h2, h3"));
+      if (!headings.length) {
+        tocEl.innerHTML = "<p class=\"status\">Sem seções H2/H3 para sumário.</p>";
+        return;
+      }
+
+      const seen = Object.create(null);
+      const html = headings.map((heading) => {
+        const text = heading.textContent.trim();
+        const levelClass = heading.tagName.toLowerCase() === "h3" ? "toc-link toc-h3" : "toc-link";
+
+        let id = heading.id || slugify(text) || "secao";
+        seen[id] = (seen[id] || 0) + 1;
+        if (seen[id] > 1) id = `${id}-${seen[id]}`;
+        heading.id = id;
+
+        return `<a class="${levelClass}" href="#${id}">${text}</a>`;
+      }).join("");
+
+      tocEl.innerHTML = html;
+    }
+
+    async function fetchMarkdown() {
+      const paths = [MARKDOWN_PRIMARY, MARKDOWN_FALLBACK];
+      let lastError = null;
+
+      for (const path of paths) {
+        try {
+          const res = await fetch(path, { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const md = await res.text();
+          return { md, path };
+        } catch (error) {
+          lastError = error;
+        }
+      }
+
+      throw lastError || new Error("Falha ao carregar Markdown");
+    }
+
+    async function loadEbook() {
+      setStatus("loading", "Carregando eBook...");
+
+      try {
+        const payload = await fetchMarkdown();
+        const html = marked.parse(payload.md, {
+          gfm: true,
+          breaks: false,
+          headerIds: false,
+          mangle: false
+        });
+
+        contentEl.innerHTML = html;
+        buildToc();
+        setStatus("ok", "Conteúdo carregado.");
+      } catch (error) {
+        console.error(error);
+        contentEl.innerHTML = "<p>Não foi possível carregar o eBook no momento.</p>";
+        tocEl.innerHTML = "<p class=\"status error\">Falha ao gerar sumário.</p>";
+        setStatus("error", "Erro ao carregar o eBook. Verifique se o arquivo Markdown existe no projeto.");
+      }
+    }
+
+    loadEbook();
+  </script>
+</body>
+</html>
