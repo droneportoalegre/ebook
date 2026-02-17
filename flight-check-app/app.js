@@ -53,7 +53,13 @@ const state = {
     obs: ""
   },
   metrics: {
-    ebookCtaClicks: 0
+    ebookCtaClicks: {
+      total: 0,
+      bySource: {
+        card: 0,
+        floating: 0
+      }
+    }
   }
 };
 
@@ -95,7 +101,9 @@ const el = {
   cartTotal: document.getElementById("cartTotal"),
   cartObs: document.getElementById("cartObs"),
   cartBadge: document.getElementById("cartBadge"),
-  ebookCtaCount: document.getElementById("ebookCtaCount"),
+  ebookCtaCountTotal: document.getElementById("ebookCtaCountTotal"),
+  ebookCtaCountCard: document.getElementById("ebookCtaCountCard"),
+  ebookCtaCountFloating: document.getElementById("ebookCtaCountFloating"),
   cloudIndicator: document.getElementById("cloudIndicator"),
   authStatus: document.getElementById("authStatus"),
   authEmail: document.getElementById("authEmail"),
@@ -1407,26 +1415,58 @@ function loadEbookCtaState() {
   const raw = localStorage.getItem(EBOOK_CTA_STORAGE_KEY);
   if (!raw) return;
 
-  const value = Number(raw);
-  if (Number.isFinite(value) && value >= 0) {
-    state.metrics.ebookCtaClicks = Math.floor(value);
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object") {
+      const total = Number(parsed.total);
+      const bySource = parsed.bySource && typeof parsed.bySource === "object" ? parsed.bySource : {};
+      state.metrics.ebookCtaClicks.total = Number.isFinite(total) && total >= 0 ? Math.floor(total) : 0;
+      state.metrics.ebookCtaClicks.bySource.card = normalizeCounter(bySource.card);
+      state.metrics.ebookCtaClicks.bySource.floating = normalizeCounter(bySource.floating);
+      const recomputed = state.metrics.ebookCtaClicks.bySource.card + state.metrics.ebookCtaClicks.bySource.floating;
+      state.metrics.ebookCtaClicks.total = Math.max(state.metrics.ebookCtaClicks.total, recomputed);
+      return;
+    }
+  } catch {
+    // backward compatibility: old format was a single numeric value as string
+  }
+
+  const legacyValue = Number(raw);
+  if (Number.isFinite(legacyValue) && legacyValue >= 0) {
+    state.metrics.ebookCtaClicks.total = Math.floor(legacyValue);
+    state.metrics.ebookCtaClicks.bySource.card = Math.floor(legacyValue);
+    state.metrics.ebookCtaClicks.bySource.floating = 0;
   }
 }
 
 function saveEbookCtaState() {
-  localStorage.setItem(EBOOK_CTA_STORAGE_KEY, String(state.metrics.ebookCtaClicks));
+  localStorage.setItem(EBOOK_CTA_STORAGE_KEY, JSON.stringify(state.metrics.ebookCtaClicks));
 }
 
 function renderEbookCtaCount() {
-  if (!el.ebookCtaCount) return;
-  el.ebookCtaCount.textContent = String(state.metrics.ebookCtaClicks);
+  if (el.ebookCtaCountTotal) {
+    el.ebookCtaCountTotal.textContent = String(state.metrics.ebookCtaClicks.total);
+  }
+  if (el.ebookCtaCountCard) {
+    el.ebookCtaCountCard.textContent = String(state.metrics.ebookCtaClicks.bySource.card);
+  }
+  if (el.ebookCtaCountFloating) {
+    el.ebookCtaCountFloating.textContent = String(state.metrics.ebookCtaClicks.bySource.floating);
+  }
 }
 
 function incrementEbookCtaClicks(source) {
-  state.metrics.ebookCtaClicks += 1;
+  const sourceKey = source === "floating" ? "floating" : "card";
+  state.metrics.ebookCtaClicks.total += 1;
+  state.metrics.ebookCtaClicks.bySource[sourceKey] += 1;
   saveEbookCtaState();
   renderEbookCtaCount();
-  addAuditLog("E-book CTA", `Clique em comprar (${source})`, currentActor());
+  addAuditLog("E-book CTA", `Clique em comprar (${sourceKey})`, currentActor());
+}
+
+function normalizeCounter(value) {
+  const num = Number(value);
+  return Number.isFinite(num) && num >= 0 ? Math.floor(num) : 0;
 }
 
 function buildMissionId() {
