@@ -45,7 +45,7 @@ Wesley Santos é fotojornalista há mais de 20 anos, com trabalhos publicados em
 
 Como instrutor de RPA (Remotely Piloted Aircraft), já formou mais de 920 alunos em treinamentos particulares e in company, incluindo fotógrafos, cinegrafistas, forças de segurança e praticantes por hobby.
 
-Também integrou o corpo de instrutores do Batalhão de Aviação da Brigada Militar do Rio Grande do Sul. Em três edições, instruiu mais de 60 alunos na disciplina Segurança de Voo pelo CFAER (Centro de Formação Aeropolicial).
+Também integrou o corpo de instrutores do Batalhão de Aviação da Brigada Militar do Rio Grande do Sul. Em três edições, instruiu mais de 60 alunos na disciplina de Segurança de Voo, pelo CFAER (Centro de Formação Aeropolicial).
 
 No SENAC, atuou como instrutor em duas turmas do curso de Pilotagem de Drone. Colaborou ainda em formações para a Polícia Militar do Estado de São Paulo, Polícia Federal (GPI) e Polícia Rodoviária Federal.
 
@@ -344,7 +344,7 @@ A tendência é reforçar abordagem baseada em risco operacional.
 Quem se prepara antes, ganha mercado.
 
 ### Trilha Especialista
-Consulta Pública nº 09/2025 da ANAC foi encerrada em 18/07/2025. Em 17/02/2026, a direção técnica publicada aponta evolução regulatória com maior densidade de gestão de risco por categoria operacional.
+Consulta Pública nº 09/2025 da ANAC foi encerrada em 18/07/2025. Em 17/02/2026, o direcionamento técnico publicado aponta evolução regulatória com maior densidade de gestão de risco por categoria operacional.
 
 ### Erro comum
 Esperar a regra final para então começar adaptação.
@@ -372,7 +372,7 @@ Esperar a regra final para então começar adaptação.
 
 ### 61-90 dias
 - Auditoria interna completa.
-- Correção de não conformidades.
+- Correção de não-conformidades.
 - Painel de KPIs operacionais e jurídicos.
 - Posicionamento comercial de alta confiança regulatória.
 
