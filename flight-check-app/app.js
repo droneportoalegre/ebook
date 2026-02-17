@@ -36,6 +36,11 @@ const state = {
   auditLogs: [],
   activeTab: "checklist",
   storeItems: [],
+  supabase: {
+    client: null,
+    enabled: false,
+    user: null
+  },
   compliance: {
     sisant: "",
     sarpas: "",
@@ -86,6 +91,10 @@ const el = {
   cartTotal: document.getElementById("cartTotal"),
   cartObs: document.getElementById("cartObs"),
   cartBadge: document.getElementById("cartBadge")
+  ,
+  authStatus: document.getElementById("authStatus"),
+  authEmail: document.getElementById("authEmail"),
+  authPassword: document.getElementById("authPassword")
 };
 
 async function init() {
@@ -103,6 +112,7 @@ async function init() {
 
   loadCartState();
   state.storeItems = Array.isArray(window.STORE_ITEMS) ? window.STORE_ITEMS : [];
+  initSupabase();
 
   if (el.flightDate) el.flightDate.value = new Date().toISOString().slice(0, 16);
   if (el.cartObs) el.cartObs.value = state.cart.obs || "";
@@ -117,6 +127,7 @@ async function init() {
   renderStoreCategoryOptions();
   renderStoreCatalog();
   renderCart();
+  refreshAuthStatus();
   syncMissionChecklistFromForm();
   evaluateFlightStatus();
   bindEvents();
@@ -134,6 +145,11 @@ function bindEvents() {
   bindIfExists("exportJsonBtn", "click", exportJSON);
   bindIfExists("exportCsvBtn", "click", exportCSV);
   bindIfExists("exportAuditBtn", "click", exportAuditJSON);
+  bindIfExists("signupBtn", "click", signupWithEmail);
+  bindIfExists("loginBtn", "click", loginWithEmail);
+  bindIfExists("logoutBtn", "click", logoutSession);
+  bindIfExists("cloudPushBtn", "click", pushFlightsToCloud);
+  bindIfExists("cloudPullBtn", "click", pullFlightsFromCloud);
   bindIfExists("clearFiltersBtn", "click", clearHistoryFilters);
   bindIfExists("clearAuditBtn", "click", clearAuditTrail);
   bindIfExists("clearCartBtn", "click", clearCart);
@@ -581,6 +597,160 @@ function readMission() {
     hadIncident: Boolean(document.getElementById("hadIncident")?.checked),
     incidentDetails: document.getElementById("incidentDetails")?.value.trim() || ""
   };
+}
+
+function initSupabase() {
+  const cfg = window.SUPABASE_CONFIG || {};
+  const hasLib = Boolean(window.supabase && typeof window.supabase.createClient === "function");
+  const hasConfig = Boolean(cfg.url && cfg.anonKey);
+  if (!hasLib || !hasConfig) {
+    state.supabase.enabled = false;
+    state.supabase.client = null;
+    state.supabase.user = null;
+    return;
+  }
+
+  try {
+    state.supabase.client = window.supabase.createClient(cfg.url, cfg.anonKey);
+    state.supabase.enabled = true;
+    state.supabase.client.auth.getSession().then(({ data }) => {
+      state.supabase.user = data?.session?.user || null;
+      refreshAuthStatus();
+    });
+  } catch {
+    state.supabase.enabled = false;
+    state.supabase.client = null;
+    state.supabase.user = null;
+  }
+}
+
+function refreshAuthStatus() {
+  if (!el.authStatus) return;
+  if (!state.supabase.enabled) {
+    el.authStatus.textContent = "Modo local ativo. Configure SUPABASE_CONFIG para login e nuvem.";
+    return;
+  }
+  const userEmail = state.supabase.user?.email || "";
+  if (userEmail) {
+    el.authStatus.textContent = `Conectado: ${userEmail}`;
+  } else {
+    el.authStatus.textContent = "Supabase ativo. Faça login para sincronizar na nuvem.";
+  }
+}
+
+async function signupWithEmail() {
+  if (!ensureSupabase()) return;
+  const email = (el.authEmail?.value || "").trim();
+  const password = (el.authPassword?.value || "").trim();
+  if (!email || !password) return alert("Informe e-mail e senha para criar conta.");
+
+  const { data, error } = await state.supabase.client.auth.signUp({ email, password });
+  if (error) return alert(`Erro ao criar conta: ${error.message}`);
+
+  state.supabase.user = data?.user || null;
+  refreshAuthStatus();
+  addAuditLog("Auth", "Conta criada no Supabase.", email || "sistema");
+  alert("Conta criada. Verifique seu e-mail se a confirmação estiver habilitada.");
+}
+
+async function loginWithEmail() {
+  if (!ensureSupabase()) return;
+  const email = (el.authEmail?.value || "").trim();
+  const password = (el.authPassword?.value || "").trim();
+  if (!email || !password) return alert("Informe e-mail e senha para entrar.");
+
+  const { data, error } = await state.supabase.client.auth.signInWithPassword({ email, password });
+  if (error) return alert(`Erro no login: ${error.message}`);
+
+  state.supabase.user = data?.user || null;
+  refreshAuthStatus();
+  addAuditLog("Auth", "Login realizado.", email || "sistema");
+}
+
+async function logoutSession() {
+  if (!ensureSupabase()) return;
+  const actor = state.supabase.user?.email || "sistema";
+  const { error } = await state.supabase.client.auth.signOut();
+  if (error) return alert(`Erro ao sair: ${error.message}`);
+  state.supabase.user = null;
+  refreshAuthStatus();
+  addAuditLog("Auth", "Logout realizado.", actor);
+}
+
+async function pushFlightsToCloud() {
+  if (!ensureAuth()) return;
+  if (!state.flights.length) return alert("Sem voos locais para enviar.");
+
+  const uid = state.supabase.user.id;
+  const rows = state.flights.map((flight) => ({
+    user_id: uid,
+    mission_id: flight.id,
+    saved_at: flight.savedAt || new Date().toISOString(),
+    payload: flight
+  }));
+
+  const { error } = await state.supabase.client.from("flights").upsert(rows, { onConflict: "user_id,mission_id" });
+  if (error) return alert(`Falha ao enviar para nuvem: ${error.message}`);
+
+  addAuditLog("Nuvem", `Push de ${rows.length} missão(ões) para Supabase.`, currentActor());
+  alert("Voos enviados para a nuvem com sucesso.");
+}
+
+async function pullFlightsFromCloud() {
+  if (!ensureAuth()) return;
+  const uid = state.supabase.user.id;
+
+  const { data, error } = await state.supabase.client
+    .from("flights")
+    .select("mission_id,saved_at,payload")
+    .eq("user_id", uid)
+    .order("saved_at", { ascending: false });
+
+  if (error) return alert(`Falha ao baixar da nuvem: ${error.message}`);
+
+  const remoteFlights = (data || [])
+    .map((row) => row.payload)
+    .filter(Boolean);
+
+  state.flights = mergeFlights(state.flights, remoteFlights);
+  saveState();
+  renderHistory();
+  addAuditLog("Nuvem", `Pull de ${remoteFlights.length} missão(ões) do Supabase.`, currentActor());
+  alert("Voos sincronizados da nuvem.");
+}
+
+function mergeFlights(localFlights, remoteFlights) {
+  const map = new Map();
+  [...remoteFlights, ...localFlights].forEach((flight) => {
+    if (!flight?.id) return;
+    const prev = map.get(flight.id);
+    if (!prev) {
+      map.set(flight.id, flight);
+      return;
+    }
+    const prevTime = new Date(prev.savedAt || 0).getTime();
+    const nextTime = new Date(flight.savedAt || 0).getTime();
+    if (nextTime >= prevTime) map.set(flight.id, flight);
+  });
+
+  return Array.from(map.values()).sort((a, b) => {
+    const ta = new Date(a.savedAt || 0).getTime();
+    const tb = new Date(b.savedAt || 0).getTime();
+    return tb - ta;
+  });
+}
+
+function ensureSupabase() {
+  if (state.supabase.enabled && state.supabase.client) return true;
+  alert("Supabase não configurado. Preencha data/supabase-config.js.");
+  return false;
+}
+
+function ensureAuth() {
+  if (!ensureSupabase()) return false;
+  if (state.supabase.user) return true;
+  alert("Faça login para usar sincronização em nuvem.");
+  return false;
 }
 
 function exportJSON() {

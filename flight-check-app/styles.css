@@ -355,6 +355,12 @@ textarea { resize: vertical; }
   gap: 0.45rem;
 }
 
+.auth-actions {
+  margin-top: 0.45rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
 .history-filters {
   margin: 0.4rem 0 0.8rem;
   display: grid;

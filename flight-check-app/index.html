@@ -119,6 +119,26 @@
           </div>
         </section>
 
+        <section class="card">
+          <h2>Conta e Nuvem</h2>
+          <p id="authStatus" class="mini">Modo local ativo. Configure Supabase para login e nuvem.</p>
+          <label>E-mail
+            <input id="authEmail" type="email" placeholder="seuemail@dominio.com" />
+          </label>
+          <label>Senha
+            <input id="authPassword" type="password" placeholder="Senha (mín. 6 caracteres)" />
+          </label>
+          <div class="auth-actions">
+            <button id="signupBtn" class="btn btn-secondary" type="button">Criar conta</button>
+            <button id="loginBtn" class="btn btn-primary" type="button">Entrar</button>
+            <button id="logoutBtn" class="btn btn-ghost" type="button">Sair</button>
+          </div>
+          <div class="auth-actions">
+            <button id="cloudPushBtn" class="btn btn-secondary" type="button">Enviar voos para nuvem</button>
+            <button id="cloudPullBtn" class="btn btn-secondary" type="button">Baixar voos da nuvem</button>
+          </div>
+        </section>
+
         <section class="card span-2">
           <div class="between">
             <h2>Checklist pré-voo</h2>
@@ -285,6 +305,8 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./data/supabase-config.js"></script>
   <script src="./data/store-items.js"></script>
   <script src="./app.js"></script>
 </body>
