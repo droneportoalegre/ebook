@@ -254,6 +254,31 @@ textarea { resize: vertical; }
 
 .uav-actions { margin-top: 0.35rem; }
 
+.ebook-highlight {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1rem;
+  align-items: center;
+  background: linear-gradient(120deg, #f7fbff, #fff7e8);
+}
+
+.ebook-cover {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 14px;
+  border: 1px solid #dbe2ec;
+  box-shadow: 0 10px 24px rgba(19, 36, 59, 0.14);
+}
+
+.ebook-content .tag {
+  color: #0d4e78;
+}
+
+.ebook-content .mini {
+  margin: 0;
+  max-width: 75ch;
+}
+
 .store-filters {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -480,6 +505,8 @@ th {
   .form-grid { grid-template-columns: 1fr; }
   .hero { flex-direction: column; align-items: start; }
   .between { flex-direction: column; align-items: start; }
+  .ebook-highlight { grid-template-columns: 1fr; }
+  .ebook-cover { max-width: 280px; }
   .history-filters { grid-template-columns: 1fr; }
   .store-filters { grid-template-columns: 1fr; }
   .store-grid { grid-template-columns: 1fr; }
