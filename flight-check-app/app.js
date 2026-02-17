@@ -92,6 +92,7 @@ const el = {
   cartObs: document.getElementById("cartObs"),
   cartBadge: document.getElementById("cartBadge")
   ,
+  cloudIndicator: document.getElementById("cloudIndicator"),
   authStatus: document.getElementById("authStatus"),
   authEmail: document.getElementById("authEmail"),
   authPassword: document.getElementById("authPassword")
@@ -626,6 +627,10 @@ function initSupabase() {
 }
 
 function refreshAuthStatus() {
+  const connected = Boolean(state.supabase.enabled && state.supabase.user);
+  if (el.cloudIndicator) {
+    el.cloudIndicator.textContent = connected ? "Cloud: conectado" : "Cloud: local";
+  }
   if (!el.authStatus) return;
   if (!state.supabase.enabled) {
     el.authStatus.textContent = "Modo local ativo. Configure SUPABASE_CONFIG para login e nuvem.";
@@ -679,14 +684,14 @@ async function logoutSession() {
 }
 
 async function pushFlightsToCloud() {
-  if (!ensureAuth()) return;
+  const user = await getSessionUser();
+  if (!user) return;
   if (!state.flights.length) return alert("Sem voos locais para enviar.");
 
-  const uid = state.supabase.user.id;
+  const uid = user.id;
   const rows = state.flights.map((flight) => ({
     user_id: uid,
-    mission_id: flight.id,
-    saved_at: flight.savedAt || new Date().toISOString(),
+    mission_id: flight.id || buildMissionId(),
     payload: flight
   }));
 
@@ -698,22 +703,28 @@ async function pushFlightsToCloud() {
 }
 
 async function pullFlightsFromCloud() {
-  if (!ensureAuth()) return;
-  const uid = state.supabase.user.id;
+  const user = await getSessionUser();
+  if (!user) return;
+  const uid = user.id;
 
   const { data, error } = await state.supabase.client
     .from("flights")
-    .select("mission_id,saved_at,payload")
+    .select("mission_id,payload,updated_at")
     .eq("user_id", uid)
-    .order("saved_at", { ascending: false });
+    .order("updated_at", { ascending: false });
 
   if (error) return alert(`Falha ao baixar da nuvem: ${error.message}`);
 
   const remoteFlights = (data || [])
-    .map((row) => row.payload)
+    .map((row) => {
+      const payload = row.payload || {};
+      if (!payload.id && row.mission_id) payload.id = row.mission_id;
+      if (!payload.savedAt && row.updated_at) payload.savedAt = row.updated_at;
+      return payload;
+    })
     .filter(Boolean);
 
-  state.flights = mergeFlights(state.flights, remoteFlights);
+  state.flights = remoteFlights;
   saveState();
   renderHistory();
   addAuditLog("Nuvem", `Pull de ${remoteFlights.length} missão(ões) do Supabase.`, currentActor());
@@ -752,6 +763,22 @@ function ensureAuth() {
   if (state.supabase.user) return true;
   alert("Faça login para usar sincronização em nuvem.");
   return false;
+}
+
+async function getSessionUser() {
+  if (!ensureSupabase()) return null;
+  const { data, error } = await state.supabase.client.auth.getSession();
+  if (error) {
+    alert(`Erro ao validar sessão: ${error.message}`);
+    return null;
+  }
+  state.supabase.user = data?.session?.user || null;
+  refreshAuthStatus();
+  if (!state.supabase.user) {
+    alert("Faça login para usar sincronização em nuvem.");
+    return null;
+  }
+  return state.supabase.user;
 }
 
 function exportJSON() {
