@@ -12,6 +12,7 @@ Aplicativo web para checklist operacional de voo com:
 - ordenacao de catalogo por nome/preco e botao de copiar pedido,
 - alertas de vencimento documental (SISANT, SARPAS, ANATEL, RETA),
 - trilha auditavel com exportacao JSON (data, usuario, acao, detalhe),
+- modo PWA (instalavel no celular com cache offline do app),
 - historico de voos,
 - exportacao JSON e CSV.
 
@@ -62,6 +63,14 @@ for update using (auth.uid() = user_id);
    - `Criar conta` / `Entrar` / `Sair`
    - `Enviar voos para nuvem` (push)
    - `Baixar voos da nuvem` (pull)
+
+## PWA (instalavel e offline)
+- Arquivos:
+  - `manifest.webmanifest`
+  - `sw.js`
+  - `assets/icon-droneops.svg`
+- Em hospedagem HTTPS (Vercel/Netlify), o navegador habilita instalacao do app.
+- O service worker faz cache dos arquivos principais para uso offline.
 
 ## Deploy rapido (Fase 1)
 ### Vercel (recomendado)

@@ -1,0 +1,18 @@
+{
+  "name": "DroneOps Check",
+  "short_name": "DroneOps",
+  "description": "Checklist operacional de drones com historico, loja e compliance.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#103254",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./assets/icon-droneops.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -132,6 +132,7 @@ async function init() {
   evaluateFlightStatus();
   bindEvents();
   switchTab("checklist");
+  registerServiceWorker();
 }
 
 function bindEvents() {
@@ -1175,6 +1176,19 @@ function getFieldLabel(id) {
     compRetaDate: "RETA validade"
   };
   return map[id] || id;
+}
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const isSecure = window.location.protocol === "https:" || isLocalhost;
+  if (!isSecure) return;
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      // Silent fail: app continues funcionando sem modo offline.
+    });
+  });
 }
 
 function hydrateComplianceInputs() {
