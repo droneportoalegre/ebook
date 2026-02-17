@@ -10,6 +10,8 @@ Aplicativo web para checklist operacional de voo com:
 - historico com filtros (busca, status e incidente),
 - loja com catalogo, carrinho e finalizacao por WhatsApp,
 - ordenacao de catalogo por nome/preco e botao de copiar pedido,
+- alertas de vencimento documental (SISANT, SARPAS, ANATEL, RETA),
+- trilha auditavel com exportacao JSON (data, usuario, acao, detalhe),
 - historico de voos,
 - exportacao JSON e CSV.
 
@@ -46,6 +48,24 @@ Aplicativo web para checklist operacional de voo com:
 6. Opcional: cole payload JSON no bloco `Conector UAV Forecast` e clique `Sincronizar payload`.
 7. Verifique o status GO/NO-GO.
 8. Salve e exporte o historico quando necessario.
+
+## Compliance documental (vencimentos)
+- Preencha as datas de validade em `Compliance documental` na aba `Checklist`.
+- O app sinaliza:
+  - `OK`: validade acima de 30 dias,
+  - `Atencao`: vence em ate 30 dias,
+  - `Critico`: vence em ate 7 dias,
+  - `Vencido`: data expirada.
+- Se houver documento vencido, o status operacional entra em `NO-GO`.
+
+## Regras automáticas por operação (Versao 3)
+As validacoes abaixo rodam automaticamente no status de voo:
+- `SISANT` obrigatorio para drone acima de `250g`.
+- `ANATEL` obrigatorio para operacao `nao recreativa`.
+- `RETA` obrigatorio para operacao `nao recreativa` com drone acima de `250g`.
+- `SARPAS` obrigatorio quando `Missao exige SARPAS?` estiver em `Sim`.
+
+Se algum requisito obrigatorio estiver sem data ou vencido, o app coloca o status em `NO-GO`.
 
 ## Integracao com UAV Forecast
 Este app integra com a interface do UAV Forecast de duas formas:

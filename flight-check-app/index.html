@@ -51,6 +51,22 @@
             <label>Tipo de missão
               <input id="missionType" placeholder="Ex.: inspeção, audiovisual, segurança" />
             </label>
+            <label>Uso da missão
+              <select id="missionUse">
+                <option value="">Selecione</option>
+                <option value="recreativo">Recreativo</option>
+                <option value="nao_recreativo">Não recreativo</option>
+              </select>
+            </label>
+            <label>Peso do drone (gramas)
+              <input id="droneWeightG" type="number" min="0" step="1" placeholder="Ex.: 895" />
+            </label>
+            <label>Missão exige SARPAS?
+              <select id="requiresSarpas">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+              </select>
+            </label>
             <label>Local
               <input id="locationName" placeholder="Cidade / ponto da operação" />
             </label>
@@ -98,6 +114,9 @@
             </label>
             <button id="recheckBtn" class="btn btn-secondary" type="button">Recalcular GO/NO-GO</button>
           </div>
+          <div id="complianceRuleBox" class="weather-box">
+            <p class="mini">Regras operacionais automáticas ainda não avaliadas.</p>
+          </div>
         </section>
 
         <section class="card span-2">
@@ -109,6 +128,28 @@
             </div>
           </div>
           <ul id="checklist" class="checklist"></ul>
+        </section>
+
+        <section class="card span-2">
+          <div class="between">
+            <h2>Compliance documental</h2>
+            <p class="mini">Alertas automáticos de vencimento (SISANT, SARPAS, ANATEL, RETA)</p>
+          </div>
+          <div class="form-grid">
+            <label>SISANT - validade
+              <input id="compSisantDate" type="date" />
+            </label>
+            <label>SARPAS - validade
+              <input id="compSarpasDate" type="date" />
+            </label>
+            <label>ANATEL - validade
+              <input id="compAnatelDate" type="date" />
+            </label>
+            <label>RETA - validade
+              <input id="compRetaDate" type="date" />
+            </label>
+          </div>
+          <div id="complianceAlerts" class="compliance-list"></div>
         </section>
 
         <section class="card">
@@ -178,6 +219,27 @@
               </tr>
             </thead>
             <tbody id="historyBody"></tbody>
+          </table>
+        </section>
+
+        <section class="card span-3">
+          <div class="between">
+            <h2>Trilha auditável</h2>
+            <div class="hero-actions">
+              <button id="exportAuditBtn" class="btn btn-secondary" type="button">Exportar auditoria</button>
+              <button id="clearAuditBtn" class="btn btn-ghost" type="button">Limpar trilha</button>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Usuário</th>
+                <th>Ação</th>
+                <th>Detalhe</th>
+              </tr>
+            </thead>
+            <tbody id="auditBody"></tbody>
           </table>
         </section>
       </div>

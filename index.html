@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drone Legal Brasil | Hub do Projeto</title>
+  <meta name="description" content="Página índice do projeto Drone Legal Brasil com acesso ao app, eBook, landing page e materiais de apoio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12263a;
+      --ink-soft: #3f5871;
+      --bg: #f7f6f2;
+      --card: #ffffff;
+      --line: #dce4ee;
+      --brand: #0f766e;
+      --brand-2: #c0841a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(15, 118, 110, 0.16), transparent 35%),
+        radial-gradient(circle at 92% 12%, rgba(192, 132, 26, 0.16), transparent 30%),
+        var(--bg);
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    .hero {
+      margin-top: 1rem;
+      background: linear-gradient(130deg, #103254, #1f4d7e);
+      color: #fff;
+      border-radius: 24px;
+      padding: clamp(1.1rem, 3vw, 2rem);
+      box-shadow: 0 18px 40px rgba(10, 30, 50, 0.2);
+    }
+
+    .tag {
+      margin: 0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #92f0dc;
+    }
+
+    h1 {
+      margin: 0.45rem 0 0.6rem;
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 72ch;
+      color: #dbe9fa;
+    }
+
+    .grid {
+      margin: 1rem 0 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 0.95rem;
+      box-shadow: 0 8px 18px rgba(18, 38, 58, 0.06);
+    }
+
+    .card h2 {
+      margin: 0 0 0.45rem;
+      font-size: 1.1rem;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .btn {
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #ecf4ff;
+      color: #184165;
+      border: 1px solid #c7d8ee;
+    }
+
+    footer {
+      margin-bottom: 1.2rem;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+    }
+
+    code {
+      background: #edf2f8;
+      border: 1px solid #d7e0eb;
+      border-radius: 8px;
+      padding: 0.08rem 0.35rem;
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero shell">
+    <p class="tag">Projeto</p>
+    <h1>Drone Legal Brasil</h1>
+    <p>Hub principal com acesso ao app operacional, eBook, landing page de vendas e materiais de produção. Use esta página como ponto de entrada para validação, revisão e publicação.</p>
+  </header>
+
+  <main class="shell grid">
+    <section class="card">
+      <h2>Flight-Check App</h2>
+      <p>App com checklist, histórico, loja, compliance documental e trilha auditável.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="./flight-check-app/index.html">Abrir App</a>
+        <a class="btn btn-secondary" href="./flight-check-app/README.md">README do App</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>E-book (versão venda)</h2>
+      <p>Manuscrito final com estrutura do zero ao pró, dupla trilha e posicionamento comercial.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="./ebook-legislacao-drones-brasil-pronto-para-venda.md">Abrir Manuscrito</a>
+        <a class="btn btn-secondary" href="./guia-diagramacao-publicacao.md">Guia de Diagramação</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Landing Page de Vendas</h2>
+      <p>Página pronta para checkout com copy, FAQ, oferta e CTA final.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="./landing-page-checkout-drone-legal-brasil.html">Abrir Landing</a>
+        <a class="btn btn-secondary" href="./landing-page-checkout-drone-legal-brasil.md">Copy Base</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Capa e Materiais</h2>
+      <p>Variações da capa em SVG e anúncios para Meta/Instagram.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="./capa-ebook-drone-legal-brasil-mavic3pro.svg">Capa v1</a>
+        <a class="btn btn-secondary" href="./capa-ebook-drone-legal-brasil-mavic3pro-v2.svg">Capa v2</a>
+        <a class="btn btn-secondary" href="./anuncios-meta-instagram-drone-legal-brasil.md">Anúncios</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <p>Para publicar o app no Vercel, selecione <code>flight-check-app</code> como Root Directory.</p>
+  </footer>
+</body>
+</html>

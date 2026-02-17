@@ -146,13 +146,14 @@ label {
   font-weight: 600;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   border: 1px solid #c8d1dc;
   border-radius: 10px;
   padding: 0.6rem;
   font: 500 0.94rem/1.2 "IBM Plex Sans", sans-serif;
   color: var(--ink);
+  background: #fff;
 }
 
 textarea { resize: vertical; }
@@ -386,6 +387,64 @@ textarea { resize: vertical; }
 .pill-no {
   background: #dcfce7;
   color: #166534;
+}
+
+.compliance-list {
+  margin-top: 0.7rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.compliance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dbe2ec;
+  border-radius: 11px;
+  background: #fbfdff;
+  padding: 0.5rem 0.6rem;
+}
+
+.comp-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.16rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.comp-ok {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.comp-warning {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.comp-critical {
+  color: #9a3412;
+  background: #ffedd5;
+}
+
+.comp-expired {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.comp-missing {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.rule-list {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+}
+
+.rule-list li {
+  margin: 0.2rem 0;
 }
 
 table {

@@ -1,5 +1,7 @@
 const STORAGE_KEY = "droneops_check_v1";
 const CART_STORAGE_KEY = "droneops_cart_v1";
+const COMPLIANCE_WARNING_DAYS = 30;
+const COMPLIANCE_CRITICAL_DAYS = 7;
 
 const defaultChecklistPhases = [
   {
@@ -31,8 +33,15 @@ const state = {
   weather: null,
   uavData: null,
   flights: [],
+  auditLogs: [],
   activeTab: "checklist",
   storeItems: [],
+  compliance: {
+    sisant: "",
+    sarpas: "",
+    anatel: "",
+    reta: ""
+  },
   cart: {
     items: [],
     obs: ""
@@ -46,6 +55,7 @@ const el = {
   weatherBox: document.getElementById("weatherBox"),
   uavData: document.getElementById("uavData"),
   historyBody: document.getElementById("historyBody"),
+  auditBody: document.getElementById("auditBody"),
   missionForm: document.getElementById("missionForm"),
   maxWind: document.getElementById("maxWind"),
   maxGust: document.getElementById("maxGust"),
@@ -59,6 +69,15 @@ const el = {
   historySearch: document.getElementById("historySearch"),
   filterStatus: document.getElementById("filterStatus"),
   filterIncident: document.getElementById("filterIncident"),
+  missionUse: document.getElementById("missionUse"),
+  droneWeightG: document.getElementById("droneWeightG"),
+  requiresSarpas: document.getElementById("requiresSarpas"),
+  complianceRuleBox: document.getElementById("complianceRuleBox"),
+  compSisantDate: document.getElementById("compSisantDate"),
+  compSarpasDate: document.getElementById("compSarpasDate"),
+  compAnatelDate: document.getElementById("compAnatelDate"),
+  compRetaDate: document.getElementById("compRetaDate"),
+  complianceAlerts: document.getElementById("complianceAlerts"),
   storeCategoryFilter: document.getElementById("storeCategoryFilter"),
   storeSearch: document.getElementById("storeSearch"),
   storeSort: document.getElementById("storeSort"),
@@ -74,17 +93,27 @@ async function init() {
   const model = await loadChecklistModel();
   state.checklist = saved?.checklist?.length ? saved.checklist : model;
   state.flights = saved?.flights || [];
+  state.auditLogs = saved?.auditLogs || [];
+  state.compliance = {
+    sisant: saved?.compliance?.sisant || "",
+    sarpas: saved?.compliance?.sarpas || "",
+    anatel: saved?.compliance?.anatel || "",
+    reta: saved?.compliance?.reta || ""
+  };
 
   loadCartState();
   state.storeItems = Array.isArray(window.STORE_ITEMS) ? window.STORE_ITEMS : [];
 
   if (el.flightDate) el.flightDate.value = new Date().toISOString().slice(0, 16);
   if (el.cartObs) el.cartObs.value = state.cart.obs || "";
+  hydrateComplianceInputs();
 
   renderChecklist();
   renderHistory();
+  renderAuditTrail();
   renderWeather();
   renderUav();
+  renderComplianceAlerts();
   renderStoreCategoryOptions();
   renderStoreCatalog();
   renderCart();
@@ -104,7 +133,9 @@ function bindEvents() {
   bindIfExists("newFlightBtn", "click", resetCurrentFlight);
   bindIfExists("exportJsonBtn", "click", exportJSON);
   bindIfExists("exportCsvBtn", "click", exportCSV);
+  bindIfExists("exportAuditBtn", "click", exportAuditJSON);
   bindIfExists("clearFiltersBtn", "click", clearHistoryFilters);
+  bindIfExists("clearAuditBtn", "click", clearAuditTrail);
   bindIfExists("clearCartBtn", "click", clearCart);
   bindIfExists("copyOrderBtn", "click", copyOrderToClipboard);
   bindIfExists("checkoutWhatsappBtn", "click", checkoutWhatsapp);
@@ -115,6 +146,23 @@ function bindEvents() {
 
   [el.maxWind, el.maxGust, el.maxKp].forEach((node) => {
     if (node) node.addEventListener("input", evaluateFlightStatus);
+  });
+
+  [el.missionUse, el.droneWeightG, el.requiresSarpas].forEach((node) => {
+    if (!node) return;
+    node.addEventListener("input", evaluateFlightStatus);
+    node.addEventListener("change", evaluateFlightStatus);
+  });
+
+  [el.compSisantDate, el.compSarpasDate, el.compAnatelDate, el.compRetaDate].forEach((node) => {
+    if (!node) return;
+    node.addEventListener("input", () => {
+      syncComplianceFromInputs();
+      saveState();
+      addAuditLog("Compliance atualizado", `${getFieldLabel(node.id)}: ${node.value || "(vazio)"}`, currentActor());
+      renderComplianceAlerts();
+      evaluateFlightStatus();
+    });
   });
 
   [el.historySearch, el.filterStatus, el.filterIncident].forEach((node) => {
@@ -163,6 +211,13 @@ function bindEvents() {
       saveState();
       evaluateFlightStatus();
     });
+    el.missionForm.addEventListener("change", (ev) => {
+      const target = ev.target;
+      if (!target?.id) return;
+      const name = getFieldLabel(target.id);
+      const value = target.type === "checkbox" ? (target.checked ? "sim" : "nao") : String(target.value || "").trim() || "(vazio)";
+      addAuditLog("Campo alterado", `${name}: ${value}`, currentActor());
+    });
   }
 }
 
@@ -210,6 +265,7 @@ function renderChecklist() {
       checkbox.addEventListener("change", () => {
         item.done = checkbox.checked;
         saveState();
+        addAuditLog("Checklist atualizado", `${item.phase} > ${item.label}: ${checkbox.checked ? "marcado" : "desmarcado"}`, currentActor());
         evaluateFlightStatus();
       });
 
@@ -232,6 +288,7 @@ function addChecklistItem() {
   el.newItemInput.value = "";
   renderChecklist();
   saveState();
+  addAuditLog("Checklist personalizado", `Item adicionado: ${label}`, currentActor());
   evaluateFlightStatus();
 }
 
@@ -348,6 +405,8 @@ function renderUav() {
 }
 
 function evaluateFlightStatus() {
+  syncComplianceFromInputs();
+  const ruleEval = evaluateOperationalRules();
   const total = state.checklist.length;
   const done = state.checklist.filter((i) => i.done).length;
 
@@ -359,25 +418,31 @@ function evaluateFlightStatus() {
   const weatherGust = preferValue(state.uavData?.gust, state.weather?.gust);
   const kp = state.uavData?.kp;
 
-  const reasons = [];
+  const reasons = [...ruleEval.blockers];
+  const complianceStatuses = getComplianceStatuses();
+  const expiredDocs = complianceStatuses.filter((item) => item.level === "expired");
 
   if (done < total) reasons.push(`Checklist incompleto (${done}/${total})`);
   if (Number.isFinite(weatherWind) && weatherWind > maxWind) reasons.push(`Vento acima do limite (${weatherWind} > ${maxWind})`);
   if (Number.isFinite(weatherGust) && weatherGust > maxGust) reasons.push(`Rajada acima do limite (${weatherGust} > ${maxGust})`);
   if (Number.isFinite(kp) && kp > maxKp) reasons.push(`Kp acima do limite (${kp} > ${maxKp})`);
+  if (expiredDocs.length) reasons.push(`Documento(s) vencido(s): ${expiredDocs.map((d) => d.name).join(", ")}`);
 
   const hasWeather = Number.isFinite(weatherWind) || Number.isFinite(weatherGust);
+  renderComplianceAlerts();
+  renderOperationalRuleBox(ruleEval);
+
+  if (reasons.length) {
+    paintStatus("NO-GO", "status-no", reasons.join(" | "));
+    return;
+  }
 
   if (!hasWeather) {
     paintStatus("PENDENTE", "status-warn", "Sem dado de vento/rajada para decisão completa.");
     return;
   }
 
-  if (reasons.length) {
-    paintStatus("NO-GO", "status-no", reasons.join(" | "));
-  } else {
-    paintStatus("GO", "status-ok", "Checklist completo e clima dentro dos limites configurados.");
-  }
+  paintStatus("GO", "status-ok", "Checklist completo, clima dentro do limite e compliance operacional atendido.");
 }
 
 function paintStatus(label, css, reason) {
@@ -407,6 +472,7 @@ function saveFlight() {
     reason: el.statusReason?.textContent || "",
     checklistDone: state.checklist.filter((i) => i.done).length,
     checklistTotal: state.checklist.length,
+    complianceSnapshot: getComplianceStatuses(),
     weather: state.weather,
     uavData: state.uavData,
     savedAt: new Date().toISOString()
@@ -414,6 +480,7 @@ function saveFlight() {
 
   state.flights.unshift(record);
   saveState();
+  addAuditLog("Missão salva", `${record.id} | ${record.drone} | status ${record.finalStatus}`, currentActor());
   renderHistory();
 }
 
@@ -429,8 +496,10 @@ function resetCurrentFlight() {
   renderChecklist();
   renderWeather();
   renderUav();
+  renderComplianceAlerts();
   evaluateFlightStatus();
   saveState();
+  addAuditLog("Novo voo", "Formulário resetado para nova missão.", currentActor());
 }
 
 function renderHistory() {
@@ -500,6 +569,9 @@ function readMission() {
     drone: document.getElementById("droneModel")?.value.trim() || "",
     clientName: document.getElementById("clientName")?.value.trim() || "",
     missionType: document.getElementById("missionType")?.value.trim() || "",
+    missionUse: document.getElementById("missionUse")?.value || "",
+    droneWeightG: toNullableNumber(document.getElementById("droneWeightG")?.value),
+    requiresSarpas: document.getElementById("requiresSarpas")?.value || "nao",
     location: document.getElementById("locationName")?.value.trim() || "",
     lat: toNullableNumber(el.lat?.value),
     lon: toNullableNumber(el.lon?.value),
@@ -515,7 +587,9 @@ function exportJSON() {
   const data = {
     generatedAt: new Date().toISOString(),
     checklistModel: state.checklist,
+    compliance: state.compliance,
     flights: state.flights,
+    auditLogs: state.auditLogs,
     cart: state.cart
   };
   downloadFile(`droneops-check-${Date.now()}.json`, JSON.stringify(data, null, 2), "application/json");
@@ -534,8 +608,11 @@ function exportCSV() {
     "pilot_responsible",
     "client_name",
     "drone",
+    "drone_weight_g",
     "location",
     "mission_type",
+    "mission_use",
+    "requires_sarpas",
     "status",
     "had_incident",
     "incident_details",
@@ -545,7 +622,8 @@ function exportCSV() {
     "gust",
     "kp",
     "checklist_done",
-    "checklist_total"
+    "checklist_total",
+    "compliance_resume"
   ];
 
   const rows = state.flights.map((f) => [
@@ -555,8 +633,11 @@ function exportCSV() {
     f.pilotResponsible,
     f.clientName,
     f.drone,
+    f.droneWeightG ?? "",
     f.location,
     f.missionType,
+    f.missionUse,
+    f.requiresSarpas,
     f.status,
     f.hadIncident ? "yes" : "no",
     f.incidentDetails,
@@ -566,7 +647,10 @@ function exportCSV() {
     f.uavData?.gust ?? f.weather?.gust ?? "",
     f.uavData?.kp ?? "",
     f.checklistDone,
-    f.checklistTotal
+    f.checklistTotal,
+    (f.complianceSnapshot || [])
+      .map((c) => `${c.name}:${formatComplianceLevel(c.level)}`)
+      .join(" | ")
   ]);
 
   const csv = [header, ...rows].map((cols) => cols.map(csvEscape).join(",")).join("\n");
@@ -655,6 +739,8 @@ function addToCart(itemId) {
     state.cart.items.push({ id: itemId, qty: 1 });
   }
   saveCartState();
+  const item = state.storeItems.find((it) => it.id === itemId);
+  addAuditLog("Carrinho", `Adicionado: ${item?.nome || itemId}`, currentActor());
   renderCart();
 }
 
@@ -668,12 +754,16 @@ function changeCartQty(itemId, delta) {
   }
 
   saveCartState();
+  const item = state.storeItems.find((it) => it.id === itemId);
+  addAuditLog("Carrinho", `Quantidade alterada: ${item?.nome || itemId} (${row.qty > 0 ? row.qty : 0})`, currentActor());
   renderCart();
 }
 
 function removeFromCart(itemId) {
   state.cart.items = state.cart.items.filter((it) => it.id !== itemId);
   saveCartState();
+  const item = state.storeItems.find((it) => it.id === itemId);
+  addAuditLog("Carrinho", `Removido: ${item?.nome || itemId}`, currentActor());
   renderCart();
 }
 
@@ -682,6 +772,7 @@ function clearCart() {
   if (el.cartObs) el.cartObs.value = "";
   state.cart.obs = "";
   saveCartState();
+  addAuditLog("Carrinho", "Carrinho limpo.", currentActor());
   renderCart();
 }
 
@@ -742,6 +833,7 @@ function checkoutWhatsapp() {
   if (!msg) return;
 
   const url = `https://wa.me/5551980289009?text=${encodeURIComponent(msg)}`;
+  addAuditLog("Checkout", "Pedido enviado para WhatsApp.", currentActor());
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
@@ -751,6 +843,7 @@ async function copyOrderToClipboard() {
 
   try {
     await navigator.clipboard.writeText(msg);
+    addAuditLog("Checkout", "Pedido copiado para área de transferência.", currentActor());
     alert("Pedido copiado para a área de transferência.");
   } catch {
     alert("Não foi possível copiar automaticamente. Tente novamente.");
@@ -828,9 +921,226 @@ function syncMissionChecklistFromForm() {
 function saveState() {
   const payload = {
     checklist: state.checklist,
-    flights: state.flights.slice(0, 500)
+    flights: state.flights.slice(0, 500),
+    compliance: state.compliance,
+    auditLogs: state.auditLogs.slice(0, 1000)
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+}
+
+function addAuditLog(action, detail, actor = "sistema") {
+  state.auditLogs.unshift({
+    at: new Date().toISOString(),
+    actor: actor || "sistema",
+    action,
+    detail
+  });
+  if (state.auditLogs.length > 1000) state.auditLogs = state.auditLogs.slice(0, 1000);
+  saveState();
+  renderAuditTrail();
+}
+
+function renderAuditTrail() {
+  if (!el.auditBody) return;
+  el.auditBody.innerHTML = "";
+
+  if (!state.auditLogs.length) {
+    el.auditBody.innerHTML = `<tr><td colspan="4">Sem eventos na trilha auditável.</td></tr>`;
+    return;
+  }
+
+  state.auditLogs.slice(0, 200).forEach((log) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${fmtDate(log.at)}</td>
+      <td>${escapeHtml(log.actor || "sistema")}</td>
+      <td>${escapeHtml(log.action || "-")}</td>
+      <td>${escapeHtml(log.detail || "-")}</td>
+    `;
+    el.auditBody.appendChild(tr);
+  });
+}
+
+function exportAuditJSON() {
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    auditLogs: state.auditLogs
+  };
+  downloadFile(`droneops-audit-${Date.now()}.json`, JSON.stringify(payload, null, 2), "application/json");
+}
+
+function clearAuditTrail() {
+  state.auditLogs = [];
+  saveState();
+  renderAuditTrail();
+}
+
+function currentActor() {
+  const operator = document.getElementById("operatorName")?.value.trim();
+  const pilot = document.getElementById("pilotResponsible")?.value.trim();
+  return operator || pilot || "sistema";
+}
+
+function getFieldLabel(id) {
+  const map = {
+    operatorName: "Operador",
+    pilotResponsible: "Piloto responsável",
+    droneModel: "Drone",
+    clientName: "Cliente",
+    missionType: "Tipo de missão",
+    missionUse: "Uso da missão",
+    droneWeightG: "Peso do drone",
+    requiresSarpas: "Missão exige SARPAS",
+    locationName: "Local",
+    lat: "Latitude",
+    lon: "Longitude",
+    flightDate: "Data e hora",
+    notes: "Observações",
+    flightLog: "Log operacional",
+    hadIncident: "Incidente/desvio",
+    incidentDetails: "Descrição do incidente",
+    compSisantDate: "SISANT validade",
+    compSarpasDate: "SARPAS validade",
+    compAnatelDate: "ANATEL validade",
+    compRetaDate: "RETA validade"
+  };
+  return map[id] || id;
+}
+
+function hydrateComplianceInputs() {
+  if (el.compSisantDate) el.compSisantDate.value = state.compliance.sisant || "";
+  if (el.compSarpasDate) el.compSarpasDate.value = state.compliance.sarpas || "";
+  if (el.compAnatelDate) el.compAnatelDate.value = state.compliance.anatel || "";
+  if (el.compRetaDate) el.compRetaDate.value = state.compliance.reta || "";
+}
+
+function syncComplianceFromInputs() {
+  state.compliance.sisant = el.compSisantDate?.value || "";
+  state.compliance.sarpas = el.compSarpasDate?.value || "";
+  state.compliance.anatel = el.compAnatelDate?.value || "";
+  state.compliance.reta = el.compRetaDate?.value || "";
+}
+
+function getComplianceStatuses() {
+  const docs = [
+    { key: "sisant", name: "SISANT" },
+    { key: "sarpas", name: "SARPAS" },
+    { key: "anatel", name: "ANATEL" },
+    { key: "reta", name: "RETA" }
+  ];
+
+  return docs.map((doc) => {
+    const value = state.compliance[doc.key] || "";
+    if (!value) {
+      return { ...doc, level: "missing", text: "Sem data informada" };
+    }
+
+    const days = daysUntilDate(value);
+    if (days < 0) {
+      return { ...doc, level: "expired", text: `Vencido há ${Math.abs(days)} dia(s)` };
+    }
+    if (days <= COMPLIANCE_CRITICAL_DAYS) {
+      return { ...doc, level: "critical", text: `Vence em ${days} dia(s)` };
+    }
+    if (days <= COMPLIANCE_WARNING_DAYS) {
+      return { ...doc, level: "warning", text: `Vence em ${days} dia(s)` };
+    }
+    return { ...doc, level: "ok", text: `Válido por mais ${days} dia(s)` };
+  });
+}
+
+function renderComplianceAlerts() {
+  if (!el.complianceAlerts) return;
+  const statuses = getComplianceStatuses();
+
+  el.complianceAlerts.innerHTML = statuses
+    .map((doc) => {
+      return `
+        <div class="compliance-row">
+          <span>${escapeHtml(doc.name)} - ${escapeHtml(doc.text)}</span>
+          <span class="comp-badge comp-${escapeHtml(doc.level)}">${formatComplianceLevel(doc.level)}</span>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function evaluateOperationalRules() {
+  const blockers = [];
+  const warnings = [];
+  const statuses = getComplianceStatuses();
+  const statusMap = Object.fromEntries(statuses.map((s) => [s.key, s]));
+
+  const missionUse = el.missionUse?.value || "";
+  const droneWeight = Number(el.droneWeightG?.value);
+  const requiresSarpas = (el.requiresSarpas?.value || "nao") === "sim";
+
+  if (!missionUse) warnings.push("Selecione o uso da missão (recreativo ou não recreativo).");
+  if (!Number.isFinite(droneWeight)) warnings.push("Informe o peso do drone para validações automáticas.");
+
+  if (Number.isFinite(droneWeight) && droneWeight > 250) {
+    enforceComplianceDoc(statusMap.sisant, "SISANT obrigatório para drone acima de 250g.", blockers, warnings);
+  }
+
+  if (missionUse === "nao_recreativo") {
+    enforceComplianceDoc(statusMap.anatel, "ANATEL obrigatório para operação não recreativa.", blockers, warnings);
+  }
+
+  if (missionUse === "nao_recreativo" && Number.isFinite(droneWeight) && droneWeight > 250) {
+    enforceComplianceDoc(statusMap.reta, "RETA obrigatório para operação não recreativa acima de 250g.", blockers, warnings);
+  }
+
+  if (requiresSarpas) {
+    enforceComplianceDoc(statusMap.sarpas, "SARPAS obrigatório para este tipo de missão.", blockers, warnings);
+  }
+
+  return { blockers, warnings };
+}
+
+function enforceComplianceDoc(statusDoc, ruleText, blockers, warnings) {
+  if (!statusDoc) return;
+  if (statusDoc.level === "missing") {
+    blockers.push(`${ruleText} (sem data de validade).`);
+    return;
+  }
+  if (statusDoc.level === "expired") {
+    blockers.push(`${ruleText} (${statusDoc.name} vencido).`);
+    return;
+  }
+  if (statusDoc.level === "critical" || statusDoc.level === "warning") {
+    warnings.push(`${statusDoc.name}: ${statusDoc.text}.`);
+  }
+}
+
+function renderOperationalRuleBox(ruleEval) {
+  if (!el.complianceRuleBox) return;
+  if (!ruleEval) return;
+
+  const blockerHtml = ruleEval.blockers.length
+    ? `<p><strong>Bloqueios:</strong></p><ul class=\"rule-list\">${ruleEval.blockers.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`
+    : `<p><strong>Bloqueios:</strong> nenhum.</p>`;
+
+  const warningHtml = ruleEval.warnings.length
+    ? `<p><strong>Avisos:</strong></p><ul class=\"rule-list\">${ruleEval.warnings.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`
+    : `<p><strong>Avisos:</strong> nenhum.</p>`;
+
+  el.complianceRuleBox.innerHTML = `${blockerHtml}${warningHtml}`;
+}
+
+function formatComplianceLevel(level) {
+  if (level === "ok") return "OK";
+  if (level === "warning") return "Atenção";
+  if (level === "critical") return "Crítico";
+  if (level === "expired") return "Vencido";
+  return "Pendente";
+}
+
+function daysUntilDate(yyyyMmDd) {
+  const [y, m, d] = String(yyyyMmDd).split("-").map(Number);
+  const target = new Date(y, (m || 1) - 1, d || 1);
+  const today = new Date();
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return Math.ceil((target - todayStart) / (24 * 60 * 60 * 1000));
 }
 
 function loadState() {
