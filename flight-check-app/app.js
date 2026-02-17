@@ -1,5 +1,6 @@
 const STORAGE_KEY = "droneops_check_v1";
 const CART_STORAGE_KEY = "droneops_cart_v1";
+const EBOOK_CTA_STORAGE_KEY = "droneops_ebook_cta_clicks_v1";
 const COMPLIANCE_WARNING_DAYS = 30;
 const COMPLIANCE_CRITICAL_DAYS = 7;
 
@@ -50,6 +51,9 @@ const state = {
   cart: {
     items: [],
     obs: ""
+  },
+  metrics: {
+    ebookCtaClicks: 0
   }
 };
 
@@ -90,8 +94,8 @@ const el = {
   cartItems: document.getElementById("cartItems"),
   cartTotal: document.getElementById("cartTotal"),
   cartObs: document.getElementById("cartObs"),
-  cartBadge: document.getElementById("cartBadge")
-  ,
+  cartBadge: document.getElementById("cartBadge"),
+  ebookCtaCount: document.getElementById("ebookCtaCount"),
   cloudIndicator: document.getElementById("cloudIndicator"),
   authStatus: document.getElementById("authStatus"),
   authEmail: document.getElementById("authEmail"),
@@ -112,6 +116,7 @@ async function init() {
   };
 
   loadCartState();
+  loadEbookCtaState();
   state.storeItems = Array.isArray(window.STORE_ITEMS) ? window.STORE_ITEMS : [];
   initSupabase();
 
@@ -128,6 +133,7 @@ async function init() {
   renderStoreCategoryOptions();
   renderStore();
   renderCart();
+  renderEbookCtaCount();
   refreshAuthStatus();
   syncMissionChecklistFromForm();
   evaluateFlightStatus();
@@ -157,6 +163,11 @@ function bindEvents() {
   bindIfExists("clearCartBtn", "click", clearCart);
   bindIfExists("copyOrderBtn", "click", copyOrderToClipboard);
   bindIfExists("checkoutWhatsappBtn", "click", checkoutWhatsapp);
+  document.querySelectorAll("[data-ebook-cta]").forEach((node) => {
+    node.addEventListener("click", () => {
+      incrementEbookCtaClicks(node.dataset.ebookCta || "ebook-cta");
+    });
+  });
 
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", () => switchTab(btn.dataset.tab));
@@ -1390,6 +1401,32 @@ function loadCartState() {
     state.cart.items = [];
     state.cart.obs = "";
   }
+}
+
+function loadEbookCtaState() {
+  const raw = localStorage.getItem(EBOOK_CTA_STORAGE_KEY);
+  if (!raw) return;
+
+  const value = Number(raw);
+  if (Number.isFinite(value) && value >= 0) {
+    state.metrics.ebookCtaClicks = Math.floor(value);
+  }
+}
+
+function saveEbookCtaState() {
+  localStorage.setItem(EBOOK_CTA_STORAGE_KEY, String(state.metrics.ebookCtaClicks));
+}
+
+function renderEbookCtaCount() {
+  if (!el.ebookCtaCount) return;
+  el.ebookCtaCount.textContent = String(state.metrics.ebookCtaClicks);
+}
+
+function incrementEbookCtaClicks(source) {
+  state.metrics.ebookCtaClicks += 1;
+  saveEbookCtaState();
+  renderEbookCtaCount();
+  addAuditLog("E-book CTA", `Clique em comprar (${source})`, currentActor());
 }
 
 function buildMissionId() {
