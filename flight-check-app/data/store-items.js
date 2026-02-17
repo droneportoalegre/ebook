@@ -46,21 +46,21 @@ window.STORE_ITEMS = [
   {
     id: "drn-001",
     nome: "DJI Mavic 3 Pro (Novo)",
-    categoria: "Drone",
+    categoria: "Drones",
     preco: 14990,
     descricao: "Drone com câmera tripla para inspeção e audiovisual avançado."
   },
   {
     id: "drn-002",
     nome: "DJI Air 3S (Novo)",
-    categoria: "Drone",
+    categoria: "Drones",
     preco: 8990,
     descricao: "Plataforma compacta para operações comerciais ágeis."
   },
   {
     id: "usd-001",
     nome: "Mavic 3 Classic Usado (Revisado)",
-    categoria: "Drone usado",
+    categoria: "Drones usados",
     preco: null,
     sobConsulta: true,
     descricao: "Equipamento revisado com histórico e checklist técnico."
@@ -68,7 +68,7 @@ window.STORE_ITEMS = [
   {
     id: "usd-002",
     nome: "Mini 3 Pro Usado (Revisado)",
-    categoria: "Drone usado",
+    categoria: "Drones usados",
     preco: null,
     sobConsulta: true,
     descricao: "Opção de entrada com suporte e avaliação técnica."

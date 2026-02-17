@@ -126,7 +126,7 @@ async function init() {
   renderUav();
   renderComplianceAlerts();
   renderStoreCategoryOptions();
-  renderStoreCatalog();
+  renderStore();
   renderCart();
   refreshAuthStatus();
   syncMissionChecklistFromForm();
@@ -191,8 +191,8 @@ function bindEvents() {
 
   [el.storeCategoryFilter, el.storeSearch, el.storeSort].forEach((node) => {
     if (!node) return;
-    node.addEventListener("input", renderStoreCatalog);
-    node.addEventListener("change", renderStoreCatalog);
+    node.addEventListener("input", renderStore);
+    node.addEventListener("change", renderStore);
   });
 
   if (el.storeCatalog) {
@@ -246,6 +246,12 @@ function bindIfExists(id, eventName, handler) {
 
 function switchTab(tabName) {
   state.activeTab = tabName;
+  const screenByTab = {
+    checklist: "screen-checklist",
+    historico: "screen-historico",
+    loja: "storeView"
+  };
+  const activeScreenId = screenByTab[tabName] || "screen-checklist";
 
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     const active = btn.dataset.tab === tabName;
@@ -253,7 +259,7 @@ function switchTab(tabName) {
   });
 
   document.querySelectorAll(".tab-screen").forEach((screen) => {
-    const active = screen.id === `screen-${tabName}`;
+    const active = screen.id === activeScreenId;
     screen.classList.toggle("is-active", active);
   });
 }
@@ -905,7 +911,7 @@ function getFilteredStoreItems() {
   return filtered;
 }
 
-function renderStoreCatalog() {
+function renderStore() {
   if (!el.storeCatalog) return;
   const items = getFilteredStoreItems();
 
