@@ -182,21 +182,21 @@ def build_pdf_from_blocks(blocks):
     # Capa interna
     emit_text('DRONE LEGAL BRASIL', MARGIN_L, y, 32, 'bold')
     y -= 44
-    emit_text('O Guia Completo da Legislacao de Drones no Brasil', MARGIN_L, y, 17, 'regular')
+    emit_text('O Guia Completo da Legislação de Drones no Brasil', MARGIN_L, y, 17, 'regular')
     y -= 26
-    emit_text('Do Zero ao Pro com ANAC, DECEA, ANATEL e Seguro RETA', MARGIN_L, y, 13, 'italic')
+    emit_text('Do Zero ao Pró com ANAC, DECEA, ANATEL e Seguro RETA', MARGIN_L, y, 13, 'italic')
     y -= 40
     emit_line(y)
     y -= 35
     emit_text('Autor: Wesley Santos', MARGIN_L, y, 12, 'regular')
     y -= 20
-    emit_text('Versao de venda diagramada em PDF', MARGIN_L, y, 12, 'regular')
+    emit_text('Versão de venda diagramada em PDF', MARGIN_L, y, 12, 'regular')
     y -= 20
-    emit_text('Data de referencia regulatoria: 17 de fevereiro de 2026', MARGIN_L, y, 12, 'regular')
+    emit_text('Data de referência regulatória: 17 de fevereiro de 2026', MARGIN_L, y, 12, 'regular')
     y -= 32
-    emit_text('Material educacional e estrategico.', MARGIN_L, y, 11, 'regular')
+    emit_text('Material educacional e estratégico.', MARGIN_L, y, 11, 'regular')
     y -= 18
-    emit_text('Este PDF foi preparado para distribuicao comercial.', MARGIN_L, y, 11, 'regular')
+    emit_text('Este PDF foi preparado para distribuição comercial.', MARGIN_L, y, 11, 'regular')
 
     finalize_page()
     stream_lines = new_page_stream()
