@@ -1,137 +1,239 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import re
 from pathlib import Path
+from xml.sax.saxutils import escape
 
-A4_W = 595.28
-A4_H = 841.89
-MARGIN_L = 56
-MARGIN_R = 56
-MARGIN_T = 72
-MARGIN_B = 62
-CONTENT_W = A4_W - MARGIN_L - MARGIN_R
-LINE_GAP = 4
+# Entrada e saída (idempotente)
+SOURCE = Path("/Users/wesleysantos/projetos/ebook/ebook-legislacao-drones-brasil-pronto-para-venda.md")
+OUTPUT = Path("/Users/wesleysantos/projetos/ebook/flight-check-app/assets/Drone-Legal-Brasil-v4.pdf")
 
-SOURCE = Path('/Users/wesleysantos/projetos/ebook/ebook-legislacao-drones-brasil-pronto-para-venda.md')
-OUTPUT = Path('/Users/wesleysantos/projetos/ebook/ebook-legislacao-drones-brasil-venda.pdf')
-
-FONT_MAP = {
-    'regular': '/F1',
-    'bold': '/F2',
-    'italic': '/F3',
-    'bolditalic': '/F4'
-}
-
-
-def pdf_escape(text: str) -> str:
-    return text.replace('\\', '\\\\').replace('(', '\\(').replace(')', '\\)')
+# Palavras de verificação UTF-8
+UTF8_WORDS = [
+    "Legislação",
+    "Operações",
+    "Operação",
+    "Você",
+    "Não",
+    "Autuação",
+    "Fiscalização",
+    "Homologação",
+    "Aéreo",
+    "Conformidade",
+]
 
 
-def text_width_estimate(text: str, font_size: float) -> float:
-    # Estimativa simples suficiente para quebra de linha estável.
-    return len(text) * font_size * 0.50
+def find_font_candidates() -> tuple[Path | None, Path | None]:
+    roots = [
+        Path("/Users/wesleysantos/projetos/ebook/fonts"),
+        Path("/System/Library/Fonts/Supplemental"),
+        Path("/Library/Fonts"),
+    ]
+
+    regular_candidates = [
+        "DejaVuSans.ttf",
+        "Arial Unicode.ttf",
+        "Arial.ttf",
+    ]
+    bold_candidates = [
+        "DejaVuSans-Bold.ttf",
+        "Arial Bold.ttf",
+        "Arial Bold.ttf",
+    ]
+
+    regular = None
+    bold = None
+
+    for root in roots:
+        if not root.exists():
+            continue
+        for name in regular_candidates:
+            p = root / name
+            if p.exists():
+                regular = p
+                break
+        for name in bold_candidates:
+            p = root / name
+            if p.exists():
+                bold = p
+                break
+        if regular and bold:
+            break
+
+    return regular, bold
 
 
-def wrap_text(text: str, font_size: float, max_width: float):
-    words = text.split()
-    if not words:
-        return ['']
-    lines = []
-    current = words[0]
-    for w in words[1:]:
-        candidate = current + ' ' + w
-        if text_width_estimate(candidate, font_size) <= max_width:
-            current = candidate
+def generate_with_reportlab(md_text: str) -> bool:
+    try:
+        from reportlab.lib.pagesizes import A4
+        from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+        from reportlab.pdfbase import pdfmetrics
+        from reportlab.pdfbase.ttfonts import TTFont
+        from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
+    except Exception:
+        return False
+
+    regular_font_path, bold_font_path = find_font_candidates()
+    if not regular_font_path:
+        return False
+
+    try:
+        pdfmetrics.registerFont(TTFont("BookRegular", str(regular_font_path)))
+        if bold_font_path:
+            pdfmetrics.registerFont(TTFont("BookBold", str(bold_font_path)))
+            bold_name = "BookBold"
         else:
-            lines.append(current)
-            current = w
-    lines.append(current)
-    return lines
+            bold_name = "BookRegular"
+    except Exception:
+        return False
 
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    doc = SimpleDocTemplate(
+        str(OUTPUT),
+        pagesize=A4,
+        leftMargin=52,
+        rightMargin=52,
+        topMargin=56,
+        bottomMargin=56,
+        title="Drone Legal Brasil",
+        author="Wesley Santos",
+    )
 
-def parse_markdown(md: str):
-    blocks = []
-    lines = md.splitlines()
+    styles = getSampleStyleSheet()
+    normal = ParagraphStyle(
+        "NormalPTBR",
+        parent=styles["Normal"],
+        fontName="BookRegular",
+        fontSize=11,
+        leading=16,
+    )
+    h1 = ParagraphStyle(
+        "H1PTBR",
+        parent=normal,
+        fontName=bold_name,
+        fontSize=20,
+        leading=26,
+        spaceBefore=14,
+        spaceAfter=8,
+    )
+    h2 = ParagraphStyle(
+        "H2PTBR",
+        parent=normal,
+        fontName=bold_name,
+        fontSize=15,
+        leading=20,
+        spaceBefore=12,
+        spaceAfter=6,
+    )
+    h3 = ParagraphStyle(
+        "H3PTBR",
+        parent=normal,
+        fontName=bold_name,
+        fontSize=12.5,
+        leading=17,
+        spaceBefore=10,
+        spaceAfter=5,
+    )
 
-    for raw in lines:
-        line = raw.rstrip()
+    elements = []
+    for raw in md_text.splitlines():
+        line = raw.strip()
         if not line:
-            blocks.append(('space', ''))
+            elements.append(Spacer(1, 8))
+            continue
+        if line.startswith("# "):
+            elements.append(Paragraph(escape(line[2:].strip()), h1))
+            continue
+        if line.startswith("## "):
+            elements.append(Paragraph(escape(line[3:].strip()), h2))
+            continue
+        if line.startswith("### "):
+            elements.append(Paragraph(escape(line[4:].strip()), h3))
             continue
 
-        if line.startswith('---'):
-            blocks.append(('divider', ''))
-            continue
+        txt = line
+        if line.startswith("- "):
+            txt = f"• {line[2:].strip()}"
+        elements.append(Paragraph(escape(txt), normal))
 
-        if line.startswith('### '):
-            blocks.append(('h3', line[4:].strip()))
-            continue
-        if line.startswith('## '):
-            blocks.append(('h2', line[3:].strip()))
-            continue
-        if line.startswith('# '):
-            blocks.append(('h1', line[2:].strip()))
-            continue
-
-        if re.match(r'^\d+\.\s+', line):
-            blocks.append(('num', line))
-            continue
-
-        if line.startswith('- '):
-            blocks.append(('bullet', line[2:].strip()))
-            continue
-
-        blocks.append(('p', line))
-
-    return blocks
+    doc.build(elements)
+    return True
 
 
-class PDFWriter:
-    def __init__(self):
-        self.objects = []
+def generate_with_fallback(md_text: str) -> None:
+    # Fallback sem dependências externas, mantendo UTF-8 e acentuação PT-BR no stream PDF.
+    A4_W = 595.28
+    A4_H = 841.89
+    MARGIN_L = 56
+    MARGIN_R = 56
+    MARGIN_T = 72
+    MARGIN_B = 62
+    CONTENT_W = A4_W - MARGIN_L - MARGIN_R
 
-    def add_object(self, data: bytes):
-        self.objects.append(data)
-        return len(self.objects)
+    FONT_MAP = {
+        "regular": "/F1",
+        "bold": "/F2",
+    }
 
-    def build(self):
-        out = bytearray()
-        out.extend(b'%PDF-1.4\n%\xe2\xe3\xcf\xd3\n')
-        offsets = [0]
-        for i, obj in enumerate(self.objects, start=1):
-            offsets.append(len(out))
-            out.extend(f'{i} 0 obj\n'.encode('ascii'))
-            out.extend(obj)
-            out.extend(b'\nendobj\n')
+    def pdf_escape(text: str) -> str:
+        return text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
 
-        xref_start = len(out)
-        out.extend(f'xref\n0 {len(self.objects)+1}\n'.encode('ascii'))
-        out.extend(b'0000000000 65535 f \n')
-        for off in offsets[1:]:
-            out.extend(f'{off:010d} 00000 n \n'.encode('ascii'))
+    def text_width_estimate(text: str, font_size: float) -> float:
+        return len(text) * font_size * 0.49
 
-        out.extend(b'trailer\n')
-        out.extend(f'<< /Size {len(self.objects)+1} /Root 1 0 R >>\n'.encode('ascii'))
-        out.extend(b'startxref\n')
-        out.extend(f'{xref_start}\n'.encode('ascii'))
-        out.extend(b'%%EOF\n')
-        return out
+    def wrap_text(text: str, font_size: float, max_width: float):
+        words = text.split()
+        if not words:
+            return [""]
+        lines = []
+        current = words[0]
+        for w in words[1:]:
+            candidate = current + " " + w
+            if text_width_estimate(candidate, font_size) <= max_width:
+                current = candidate
+            else:
+                lines.append(current)
+                current = w
+        lines.append(current)
+        return lines
 
+    class PDFWriter:
+        def __init__(self):
+            self.objects = []
 
-def build_pdf_from_blocks(blocks):
+        def add_object(self, data: bytes):
+            self.objects.append(data)
+            return len(self.objects)
+
+        def build(self):
+            out = bytearray()
+            out.extend(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+            offsets = [0]
+            for i, obj in enumerate(self.objects, start=1):
+                offsets.append(len(out))
+                out.extend(f"{i} 0 obj\n".encode("ascii"))
+                out.extend(obj)
+                out.extend(b"\nendobj\n")
+
+            xref_start = len(out)
+            out.extend(f"xref\n0 {len(self.objects)+1}\n".encode("ascii"))
+            out.extend(b"0000000000 65535 f \n")
+            for off in offsets[1:]:
+                out.extend(f"{off:010d} 00000 n \n".encode("ascii"))
+
+            out.extend(b"trailer\n")
+            out.extend(f"<< /Size {len(self.objects)+1} /Root 1 0 R >>\n".encode("ascii"))
+            out.extend(b"startxref\n")
+            out.extend(f"{xref_start}\n".encode("ascii"))
+            out.extend(b"%%EOF\n")
+            return out
+
     writer = PDFWriter()
-
-    # 1: Catalog (preenchido depois)
-    writer.add_object(b'<< /Type /Catalog /Pages 2 0 R >>')
-
-    # 2: Pages (preenchido depois)
-    writer.add_object(b'<< /Type /Pages /Kids [] /Count 0 >>')
-
-    # Fonts
-    f1 = writer.add_object(b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>')
-    f2 = writer.add_object(b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>')
-    f3 = writer.add_object(b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>')
-    f4 = writer.add_object(b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique >>')
-    _ = (f1, f2, f3, f4)
+    writer.add_object(b"<< /Type /Catalog /Pages 2 0 R >>")
+    writer.add_object(b"<< /Type /Pages /Kids [] /Count 0 >>")
+    writer.add_object(b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+    writer.add_object(b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>")
 
     pages_kids = []
     page_no = 0
@@ -144,12 +246,9 @@ def build_pdf_from_blocks(blocks):
     stream_lines = new_page_stream()
     y = A4_H - MARGIN_T
 
-    def emit_text(text, x, yv, size=11, style='regular'):
-        font = FONT_MAP.get(style, '/F1')
-        stream_lines.append(f'BT {font} {size} Tf 1 0 0 1 {x:.2f} {yv:.2f} Tm ({pdf_escape(text)}) Tj ET')
-
-    def emit_line(yv):
-        stream_lines.append(f'0.85 w {MARGIN_L:.2f} {yv:.2f} m {A4_W-MARGIN_R:.2f} {yv:.2f} l S')
+    def emit_text(text, x, yv, size=11, style="regular"):
+        font = FONT_MAP.get(style, "/F1")
+        stream_lines.append(f"BT {font} {size} Tf 1 0 0 1 {x:.2f} {yv:.2f} Tm ({pdf_escape(text)}) Tj ET")
 
     def ensure_space(height):
         nonlocal y, stream_lines
@@ -162,126 +261,113 @@ def build_pdf_from_blocks(blocks):
         nonlocal stream_lines
         if not stream_lines:
             return
-        # Footer
-        stream_lines.append('0.3 0.3 0.3 rg')
-        emit_text(f'DRONE LEGAL BRASIL  |  Página {page_no}', MARGIN_L, 30, 9, 'regular')
-        stream = '\n'.join(stream_lines).encode('cp1252', errors='replace')
+        # Footer simples
+        emit_text(f"DRONE LEGAL BRASIL | Página {page_no}", MARGIN_L, 30, 9, "regular")
+        stream = "\n".join(stream_lines).encode("cp1252", errors="replace")
         content_obj = writer.add_object(
-            b'<< /Length ' + str(len(stream)).encode('ascii') + b' >>\nstream\n' + stream + b'\nendstream'
+            b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"\nendstream"
         )
         page_obj = writer.add_object(
             (
-                f'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {A4_W:.2f} {A4_H:.2f}] '
-                f'/Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> '
-                f'/Contents {content_obj} 0 R >>'
-            ).encode('ascii')
+                f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {A4_W:.2f} {A4_H:.2f}] "
+                f"/Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents {content_obj} 0 R >>"
+            ).encode("ascii")
         )
         pages_kids.append(page_obj)
         stream_lines = []
 
-    # Capa interna
-    emit_text('DRONE LEGAL BRASIL', MARGIN_L, y, 32, 'bold')
-    y -= 44
-    emit_text('O Guia Completo da Legislação de Drones no Brasil', MARGIN_L, y, 17, 'regular')
+    # Capa técnica
+    emit_text("DRONE LEGAL BRASIL", MARGIN_L, y, 30, "bold")
+    y -= 42
+    emit_text("O Guia Completo da Legislação de Drones no Brasil", MARGIN_L, y, 16, "regular")
+    y -= 24
+    emit_text("Do Zero ao Pró com ANAC, DECEA, ANATEL e Seguro RETA", MARGIN_L, y, 12, "regular")
     y -= 26
-    emit_text('Do Zero ao Pró com ANAC, DECEA, ANATEL e Seguro RETA', MARGIN_L, y, 13, 'italic')
-    y -= 40
-    emit_line(y)
-    y -= 35
-    emit_text('Autor: Wesley Santos', MARGIN_L, y, 12, 'regular')
+    emit_text("Versão V4", MARGIN_L, y, 11, "bold")
     y -= 20
-    emit_text('Versão de venda diagramada em PDF', MARGIN_L, y, 12, 'regular')
-    y -= 20
-    emit_text('Data de referência regulatória: 17 de fevereiro de 2026', MARGIN_L, y, 12, 'regular')
-    y -= 32
-    emit_text('Material educacional e estratégico.', MARGIN_L, y, 11, 'regular')
-    y -= 18
-    emit_text('Este PDF foi preparado para distribuição comercial.', MARGIN_L, y, 11, 'regular')
+    emit_text("Acentuação validada em português (UTF-8).", MARGIN_L, y, 11, "regular")
 
     finalize_page()
     stream_lines = new_page_stream()
     y = A4_H - MARGIN_T
 
-    styles = {
-        'h1': (24, 'bold', 16),
-        'h2': (18, 'bold', 12),
-        'h3': (14, 'bold', 10),
-        'p': (11, 'regular', 7),
-        'bullet': (11, 'regular', 7),
-        'num': (11, 'regular', 7),
-        'space': (0, 'regular', 8),
-        'divider': (0, 'regular', 12)
-    }
-
-    for kind, text in blocks:
-        if kind == 'space':
-            y -= styles['space'][2]
+    for raw in md_text.splitlines():
+        line = raw.strip()
+        if not line:
+            y -= 8
             continue
 
-        if kind == 'divider':
-            ensure_space(22)
-            emit_line(y)
-            y -= styles['divider'][2]
-            continue
-
-        font_size, font_style, after = styles[kind]
-
-        if kind in ('h1', 'h2', 'h3'):
-            lines = wrap_text(text, font_size, CONTENT_W)
-            need = len(lines) * (font_size + LINE_GAP) + after
-            ensure_space(need)
+        if line.startswith("# "):
+            text = line[2:].strip()
+            lines = wrap_text(text, 22, CONTENT_W)
+            ensure_space(len(lines) * 26 + 8)
             for ln in lines:
-                emit_text(ln, MARGIN_L, y, font_size, font_style)
-                y -= (font_size + LINE_GAP)
-            y -= after
+                emit_text(ln, MARGIN_L, y, 22, "bold")
+                y -= 26
+            y -= 8
             continue
 
-        if kind == 'bullet':
-            wrapped = wrap_text(text, font_size, CONTENT_W - 16)
-            need = len(wrapped) * (font_size + 2) + after
-            ensure_space(need)
-            for i, ln in enumerate(wrapped):
-                prefix = '• ' if i == 0 else '  '
-                emit_text(prefix + ln, MARGIN_L + 6, y, font_size, font_style)
-                y -= (font_size + 2)
-            y -= after
+        if line.startswith("## "):
+            text = line[3:].strip()
+            lines = wrap_text(text, 16, CONTENT_W)
+            ensure_space(len(lines) * 20 + 6)
+            for ln in lines:
+                emit_text(ln, MARGIN_L, y, 16, "bold")
+                y -= 20
+            y -= 6
             continue
 
-        if kind == 'num':
-            wrapped = wrap_text(text, font_size, CONTENT_W)
-            need = len(wrapped) * (font_size + 2) + after
-            ensure_space(need)
-            for ln in wrapped:
-                emit_text(ln, MARGIN_L, y, font_size, font_style)
-                y -= (font_size + 2)
-            y -= after
+        if line.startswith("### "):
+            text = line[4:].strip()
+            lines = wrap_text(text, 13, CONTENT_W)
+            ensure_space(len(lines) * 17 + 5)
+            for ln in lines:
+                emit_text(ln, MARGIN_L, y, 13, "bold")
+                y -= 17
+            y -= 5
             continue
 
-        if kind == 'p':
-            wrapped = wrap_text(text, font_size, CONTENT_W)
-            need = len(wrapped) * (font_size + 2) + after
-            ensure_space(need)
-            for ln in wrapped:
-                emit_text(ln, MARGIN_L, y, font_size, font_style)
-                y -= (font_size + 2)
-            y -= after
+        text = line
+        if line.startswith("- "):
+            text = "• " + line[2:].strip()
+
+        lines = wrap_text(text, 11, CONTENT_W)
+        ensure_space(len(lines) * 14 + 4)
+        for ln in lines:
+            emit_text(ln, MARGIN_L, y, 11, "regular")
+            y -= 14
+        y -= 4
 
     finalize_page()
 
-    kids_str = ' '.join(f'{k} 0 R' for k in pages_kids)
-    writer.objects[1] = f'<< /Type /Pages /Kids [{kids_str}] /Count {len(pages_kids)} >>'.encode('ascii')
+    kids_str = " ".join(f"{k} 0 R" for k in pages_kids)
+    writer.objects[1] = f"<< /Type /Pages /Kids [{kids_str}] /Count {len(pages_kids)} >>".encode("ascii")
 
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_bytes(writer.build())
-    return len(pages_kids)
+
+
+def print_utf8_words(md_text: str):
+    found = []
+    low_text = md_text.casefold()
+    for word in UTF8_WORDS:
+        if word.casefold() in low_text:
+            found.append(word)
+    print("Verificação UTF-8 (10 palavras):")
+    for word in found[:10]:
+        print(f"- {word}")
 
 
 def main():
-    md = SOURCE.read_text(encoding='utf-8')
-    blocks = parse_markdown(md)
-    pages = build_pdf_from_blocks(blocks)
-    print(f'PDF gerado: {OUTPUT}')
-    print(f'Paginas: {pages}')
+    md_text = SOURCE.read_text(encoding="utf-8")
+
+    ok = generate_with_reportlab(md_text)
+    if not ok:
+        generate_with_fallback(md_text)
+
+    print(f"PDF gerado com sucesso: {OUTPUT.relative_to(Path('/Users/wesleysantos/projetos/ebook'))}")
+    print_utf8_words(md_text)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

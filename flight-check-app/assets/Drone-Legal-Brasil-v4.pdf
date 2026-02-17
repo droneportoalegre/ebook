@@ -1,0 +1,519 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R] /Count 12 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Length 473 >>
+stream
+BT /F2 30 Tf 1 0 0 1 56.00 769.89 Tm (DRONE LEGAL BRASIL) Tj ET
+BT /F1 16 Tf 1 0 0 1 56.00 727.89 Tm (O Guia Completo da Legislação de Drones no Brasil) Tj ET
+BT /F1 12 Tf 1 0 0 1 56.00 703.89 Tm (Do Zero ao Pró com ANAC, DECEA, ANATEL e Seguro RETA) Tj ET
+BT /F2 11 Tf 1 0 0 1 56.00 677.89 Tm (Versão V4) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 657.89 Tm (Acentuação validada em português \(UTF-8\).) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 1) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 3088 >>
+stream
+BT /F2 22 Tf 1 0 0 1 56.00 769.89 Tm (DRONE LEGAL BRASIL) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 735.89 Tm (O Guia Completo da Legislação de Drones no Brasil) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 709.89 Tm (Do Zero ao Pró com ANAC, DECEA, ANATEL e Seguro RETA) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 679.89 Tm (Autor: Wesley Santos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 661.89 Tm (Edição técnica: 1.0) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 643.89 Tm (Data de referência regulatória: 17 de fevereiro de 2026) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 617.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 591.89 Tm (Página de direitos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 565.89 Tm (Copyright © Wesley Santos. Todos os direitos reservados.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 539.89 Tm (Este livro é protegido por direitos autorais. Nenhuma parte pode ser reproduzida,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 525.89 Tm (distribuída ou transmitida em qualquer forma, por qualquer meio, sem autorização prévia,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 511.89 Tm (exceto pequenas citações para fins de crítica ou estudo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 485.89 Tm (Aviso legal: este livro tem finalidade educacional e estratégica. Não substitui) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 471.89 Tm (assessoria jurídica individual nem parecer técnico específico para um caso concreto.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 445.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 419.89 Tm (Dedicatória) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 393.89 Tm (A todos os profissionais que decidiram sair da informalidade e construir uma operação de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 379.89 Tm (drones séria, segura e escalável no Brasil.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 353.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 327.89 Tm (Prefácio) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 301.89 Tm (O mercado de drones no Brasil cresceu rápido. O problema é que o crescimento veio com uma) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 287.89 Tm (distorção: muitos operadores aprenderam primeiro a voar e só depois descobriram a) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 273.89 Tm (complexidade regulatória.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 247.89 Tm (Resultado: operações interrompidas, contratos perdidos, riscos jurídicos escondidos e) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 233.89 Tm (negócios que não escalam.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 207.89 Tm (Este livro foi escrito para resolver isso.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 181.89 Tm (Aqui você não encontrará um resumo superficial. Você terá um mapa de execução real, com) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 167.89 Tm (base em normas e práticas oficiais, para operar com segurança jurídica e vantagem) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 153.89 Tm (competitiva.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 127.89 Tm (E há um diferencial intencional: o conteúdo foi estruturado em duas camadas simultâneas.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 101.89 Tm (• Camada 1: linguagem direta para empreendedor, com foco em decisão, custo, prazo, risco) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 87.89 Tm (e venda.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 2) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 3535 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (• Camada 2: linguagem técnica para especialista, com foco em fundamento normativo,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 755.89 Tm (auditoria e governança operacional.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 729.89 Tm (Se você quer viver de drone com previsibilidade, este livro é para você.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 703.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 677.89 Tm (Sobre o instrutor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 651.89 Tm (Wesley Santos é fotojornalista há mais de 20 anos, com trabalhos publicados em grandes) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 637.89 Tm (veículos do Brasil e do exterior, como Folha de S.Paulo, Zero Hora, O Globo, Revista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 623.89 Tm (Veja, The New York Times e The Guardian.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 597.89 Tm (Como instrutor de RPA \(Remotely Piloted Aircraft\), já formou mais de 920 alunos em) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 583.89 Tm (treinamentos particulares e in company, incluindo fotógrafos, cinegrafistas, forças de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 569.89 Tm (segurança e praticantes por hobby.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 543.89 Tm (Também integrou o corpo de instrutores do Batalhão de Aviação da Brigada Militar do Rio) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 529.89 Tm (Grande do Sul. Em três edições, instruiu mais de 60 alunos na disciplina de Segurança de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 515.89 Tm (Voo, pelo CFAER \(Centro de Formação Aeropolicial\).) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 489.89 Tm (No SENAC, atuou como instrutor em duas turmas do curso de Pilotagem de Drone. Colaborou) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 475.89 Tm (ainda em formações para a Polícia Militar do Estado de São Paulo, Polícia Federal \(GPI\) e) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 461.89 Tm (Polícia Rodoviária Federal.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 435.89 Tm (Nas áreas de inspeções, audiovisual e segurança, trabalha com drones desde 2012, com) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 421.89 Tm (gravações para emissoras brasileiras e internacionais como SBT, Record, Globo, GloboNews,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 407.89 Tm (Discovery Channel e NHK.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 381.89 Tm (Possui certificações em Regulamentação e Operação de Drones pelo IFSP, e em Direção de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 367.89 Tm (Cinema pela ESPM/RS.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 341.89 Tm (Em 2019, contribuiu em testes de tecnologia anti-drone para o Ministério da Defesa, com) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 327.89 Tm (simulações realizadas em Congonhas e em base da Força Aérea Brasileira, em São José dos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 313.89 Tm (Campos \(SP\).) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 287.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 261.89 Tm (Como ler este livro \(método duplo\)) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 235.89 Tm (Cada capítulo contém:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 217.89 Tm (• Trilha Empreendedor.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 199.89 Tm (• Trilha Especialista.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 181.89 Tm (• Erros comuns do mercado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 163.89 Tm (• Checklist de ação imediata.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 137.89 Tm (Se você está começando, leia primeiro a Trilha Empreendedor e execute os checklists.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 119.89 Tm (Se você já opera com equipe, leia as duas trilhas em paralelo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 93.89 Tm (---) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 3) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 3258 >>
+stream
+BT /F2 16 Tf 1 0 0 1 56.00 769.89 Tm (Sumário) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 743.89 Tm (1. O ecossistema regulatório brasileiro) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 725.89 Tm (2. Conceitos-base que evitam erro caro) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 707.89 Tm (3. ANAC, DECEA e ANATEL sem confusão) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 689.89 Tm (4. Cadastro, identificação e documentação) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 671.89 Tm (5. Seguro RETA em profundidade) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 653.89 Tm (6. Operações urbanas e cenários críticos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 635.89 Tm (7. SARPAS na prática operacional) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 617.89 Tm (8. Fiscalização, autuação e responsabilização) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 599.89 Tm (9. Modelos de negócio com conformidade) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 581.89 Tm (10. Governança e compliance para escalar) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 563.89 Tm (11. Tendências regulatórias e RBAC 100) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 545.89 Tm (12. Plano de implementação em 30, 60 e 90 dias) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 527.89 Tm (13. Apêndices práticos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 509.89 Tm (14. Encerramento comercial e próximos passos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 483.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 457.89 Tm (1\) O ecossistema regulatório brasileiro) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 423.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 401.89 Tm (No Brasil, operar drone profissionalmente exige entender uma verdade simples: o que é) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 387.89 Tm (validado não é apenas a aeronave, e sim a operação completa.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 361.89 Tm (Quatro pilares sustentam a legalidade:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 343.89 Tm (• ANAC: regras aeronáuticas da operação civil.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 325.89 Tm (• DECEA: autorização e regras de uso do espaço aéreo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 307.89 Tm (• ANATEL: homologação dos equipamentos de radiofrequência.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 289.89 Tm (• Seguro RETA: cobertura obrigatória em cenários definidos por norma.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 263.89 Tm (Sem convergência entre esses pilares, seu negócio fica exposto.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 237.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 215.89 Tm (O modelo brasileiro é multiagência e cumulativo. Não há substituição entre competências:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 197.89 Tm (• ANAC regula segurança operacional do sistema de aeronave não tripulada civil.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 179.89 Tm (• DECEA regula o gerenciamento do espaço aéreo e a autorização operacional no ambiente) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 165.89 Tm (ATM.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 147.89 Tm (• ANATEL regula conformidade de equipamentos emissores de RF.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 129.89 Tm (• CBA e regulação securitária correlata suportam o dever de cobertura de responsabilidade) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 115.89 Tm (civil aeronáutica.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 89.89 Tm (Falha em um eixo compromete a legitimidade operacional do todo.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 4) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Length 2621 >>
+stream
+BT /F2 13 Tf 1 0 0 1 56.00 769.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 747.89 Tm (“Se o drone está cadastrado, posso voar em qualquer lugar.”) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 721.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 699.89 Tm (• Operação classificada corretamente \(recreativa ou não recreativa\).) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 681.89 Tm (• Requisitos ANAC verificados.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 663.89 Tm (• Acesso ao espaço aéreo planejado no fluxo DECEA.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 645.89 Tm (• Homologação ANATEL validada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 627.89 Tm (• Exigência de RETA analisada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 601.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 575.89 Tm (2\) Conceitos-base que evitam erro caro) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 541.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 519.89 Tm (Conceitos que mudam seu risco e seu contrato:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 501.89 Tm (• Aeromodelo x RPA/RPAS.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 483.89 Tm (• VLOS, EVLOS e BVLOS.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 465.89 Tm (• Pessoas envolvidas, anuentes e não anuentes.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 447.89 Tm (• Área distante de terceiros.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 421.89 Tm (Esses termos definem se a missão é simples, crítica ou inviável naquele formato.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 395.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 373.89 Tm (No RBAC-E 94, a semântica é operacional. Não é teoria: ela muda limites de operação,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 359.89 Tm (mitigação exigida e responsabilidade.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 333.89 Tm (Exemplo prático: distância mínima de segurança de pessoas não envolvidas e não anuentes) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 319.89 Tm (\(salvo mitigação e hipóteses previstas\).) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 293.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 271.89 Tm (Anuência verbal sem evidência documental robusta.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 245.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 223.89 Tm (• Cenário operacional classificado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 205.89 Tm (• Distâncias de segurança definidas por procedimento.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 187.89 Tm (• Evidência de anuência com rastreabilidade.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 161.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 135.89 Tm (3\) ANAC, DECEA e ANATEL sem confusão) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 101.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 5) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 13 0 R >>
+endobj
+15 0 obj
+<< /Length 2710 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (Pense assim:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 751.89 Tm (• ANAC: posso operar esse tipo de missão?) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 733.89 Tm (• DECEA: posso usar esse espaço aéreo nesse momento?) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 715.89 Tm (• ANATEL: meu equipamento é legal no Brasil?) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 689.89 Tm (As três respostas precisam ser “sim”.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 663.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 641.89 Tm (A maturidade regulatória exige interoperabilidade documental:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 623.89 Tm (• Documentos de operação e aeronave.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 605.89 Tm (• Evidências de acesso ao espaço aéreo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 587.89 Tm (• Certificação/homologação de RF.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 561.89 Tm (Sem trilha de auditoria, conformidade vira opinião.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 535.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 513.89 Tm (Entender aprovação em um órgão como autorização total.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 487.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 465.89 Tm (• Matriz de requisitos por órgão criada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 447.89 Tm (• Responsável por cada frente definido.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 429.89 Tm (• Repositório documental padronizado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 403.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 377.89 Tm (4\) Cadastro, identificação e documentação) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 343.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 321.89 Tm (Fiscalização real não espera você “organizar depois”.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 303.89 Tm (A operação precisa nascer pronta para ser auditada.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 277.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 255.89 Tm (Implemente dossiê por missão contendo, no mínimo:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 237.89 Tm (• identificação de piloto e responsáveis.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 219.89 Tm (• comprovações cadastrais aplicáveis.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 201.89 Tm (• evidências de autorização de voo \(quando exigível\).) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 183.89 Tm (• apólice/declaração securitária aplicável.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 165.89 Tm (• plano operacional e contingências.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 147.89 Tm (• registro pós-voo.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 121.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 99.89 Tm (Guardar documento em conversas de aplicativo sem estrutura de versionamento.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 6) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 15 0 R >>
+endobj
+17 0 obj
+<< /Length 2760 >>
+stream
+BT /F2 13 Tf 1 0 0 1 56.00 769.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 747.89 Tm (• Pasta digital padrão por missão criada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 729.89 Tm (• Controle de validade documental ativo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 711.89 Tm (• Procedimento formal de resposta à fiscalização implementado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 685.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 659.89 Tm (5\) Seguro RETA em profundidade) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 625.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 603.89 Tm (Você citou “seguro Rota”, mas no contexto regulatório o termo correto é RETA.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 577.89 Tm (Mensagem direta: operar sem cobertura adequada pode inviabilizar financeiramente seu) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 563.89 Tm (negócio após um único evento com dano a terceiros.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 537.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 515.89 Tm (Base normativa e institucional relevante:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 497.89 Tm (• Lei nº 7.565/1986 \(CBA\), art. 281.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 479.89 Tm (• Materiais oficiais ANAC sobre operação de drones com referência à exigência em) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 465.89 Tm (operações não recreativas acima de 250 g.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 447.89 Tm (• Padronização do seguro RETA em normas do CNSP.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 421.89 Tm (Risco técnico: apólice genérica não aderente ao risco efetivamente operado.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 395.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 373.89 Tm (Comprar por menor preço sem avaliar exclusões e limites.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 347.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 325.89 Tm (• Obrigatoriedade analisada por cenário.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 307.89 Tm (• Cobertura de danos a terceiros validada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 289.89 Tm (• Limites compatíveis com operação urbana/infraestrutura/evento.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 271.89 Tm (• Provas de cobertura arquivadas para auditoria e cliente.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 245.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 219.89 Tm (6\) Operações urbanas e cenários críticos) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 185.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 163.89 Tm (Operação urbana não é “voo bonito”; é gestão de risco de alto impacto.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 137.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 115.89 Tm (Cenários críticos exigem reforço de:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 97.89 Tm (• planejamento de solo e espaço aéreo.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 7) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 17 0 R >>
+endobj
+19 0 obj
+<< /Length 2523 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (• coordenação com partes interessadas.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 751.89 Tm (• plano de emergência e abortagem.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 733.89 Tm (• delimitação e controle de terceiros.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 707.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 685.89 Tm (Subestimar pressão de prazo em evento e reduzir etapa de segurança.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 659.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 637.89 Tm (• Risco de solo mapeado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 619.89 Tm (• Risco de espaço aéreo mapeado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 601.89 Tm (• Plano de contingência testado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 583.89 Tm (• Responsáveis por decisão de abortagem definidos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 557.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 531.89 Tm (7\) SARPAS na prática operacional) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 497.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 475.89 Tm (SARPAS bem feito reduz atrito com cliente e fiscalização.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 457.89 Tm (Inclua o lead time regulatório no comercial desde a proposta.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 431.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 409.89 Tm (Operação madura em SARPAS exige:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 391.89 Tm (• qualidade técnica dos dados submetidos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 373.89 Tm (• gestão de histórico por tipo de missão.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 355.89 Tm (• revisão crítica de inconformidades recorrentes.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 329.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 307.89 Tm (Pedido incompleto por falta de briefing técnico interno.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 281.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 259.89 Tm (• Dados consistentes submetidos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 241.89 Tm (• Aprovação registrada no dossiê.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 223.89 Tm (• Equipe recebeu briefing final pré-voo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 197.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 171.89 Tm (8\) Fiscalização, autuação e responsabilização) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 137.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 115.89 Tm (Seu risco real não é só multa: é perda de contrato, reputação e caixa.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 89.89 Tm (Trilha Especialista) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 8) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 19 0 R >>
+endobj
+21 0 obj
+<< /Length 2488 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (As esferas podem ser cumulativas:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 751.89 Tm (• civil: reparação de danos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 733.89 Tm (• administrativa: autuação regulatória.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 715.89 Tm (• penal: quando houver tipificação aplicável.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 689.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 667.89 Tm (Achar que contrato elimina responsabilidade operacional.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 641.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 619.89 Tm (• Protocolo de incidente formalizado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 601.89 Tm (• Evidências técnicas preservadas.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 583.89 Tm (• Comunicação jurídica e com cliente padronizada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 557.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 531.89 Tm (9\) Modelos de negócio com conformidade) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 497.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 475.89 Tm (Conformidade bem executada vira produto premium.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 457.89 Tm (Você vende previsibilidade, não apenas hora de voo.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 431.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 409.89 Tm (Monte arquitetura de escala:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 391.89 Tm (• SOP por tipo de missão.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 373.89 Tm (• Gate regulatório antes de confirmar agenda.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 355.89 Tm (• Treinamento contínuo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 337.89 Tm (• Auditoria interna periódica.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 311.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 289.89 Tm (Crescer faturamento sem crescer processo.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 263.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 241.89 Tm (• Catálogo de serviços com risco classificado.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 223.89 Tm (• Precificação incluindo custo regulatório.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 205.89 Tm (• Papel de compliance definido.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 179.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 153.89 Tm (10\) Governança e compliance para escalar) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 119.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 97.89 Tm (Sem sistema, cada piloto decide de um jeito. Isso mata margem e aumenta risco.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 9) Tj ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 21 0 R >>
+endobj
+23 0 obj
+<< /Length 2602 >>
+stream
+BT /F2 13 Tf 1 0 0 1 56.00 769.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 747.89 Tm (KPIs mínimos:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 729.89 Tm (• missões aprovadas sem retrabalho.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 711.89 Tm (• incidentes por 100 voos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 693.89 Tm (• tempo médio de regularização de ativo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 675.89 Tm (• aderência documental por equipe.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 649.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 627.89 Tm (Compliance delegado apenas ao campo, sem apoio de gestão.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 601.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 579.89 Tm (• Dono do processo definido.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 561.89 Tm (• Indicadores acompanhados mensalmente.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 543.89 Tm (• Plano de melhoria contínua ativo.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 517.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 491.89 Tm (11\) Tendências regulatórias e RBAC 100) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 457.89 Tm (Trilha Empreendedor) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 435.89 Tm (A tendência é reforçar abordagem baseada em risco operacional.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 417.89 Tm (Quem se prepara antes, ganha mercado.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 391.89 Tm (Trilha Especialista) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 369.89 Tm (Consulta Pública nº 09/2025 da ANAC foi encerrada em 18/07/2025. Em 17/02/2026, o) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 355.89 Tm (direcionamento técnico publicado aponta evolução regulatória com maior densidade de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 341.89 Tm (gestão de risco por categoria operacional.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 315.89 Tm (Erro comum) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 293.89 Tm (Esperar a regra final para então começar adaptação.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 267.89 Tm (Checklist) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 245.89 Tm (• Matriz de risco já implantada.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 227.89 Tm (• Contratos com cláusula de adequação regulatória.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 209.89 Tm (• Trilha de capacitação prevista para equipe.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 183.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 157.89 Tm (12\) Plano de implementação \(30, 60 e 90 dias\)) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 123.89 Tm (0-30 dias) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 101.89 Tm (• Diagnóstico de conformidade atual.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 83.89 Tm (• Inventário de ativos e operações.) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 10) Tj ET
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 23 0 R >>
+endobj
+25 0 obj
+<< /Length 2856 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (• Modelo único de dossiê por missão.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 751.89 Tm (• Ajustes críticos imediatos \(cadastro, homologação, seguro, procedimento\).) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 725.89 Tm (31-60 dias) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 703.89 Tm (• Padronização de SOP por serviço.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 685.89 Tm (• Treinamento operacional e documental.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 667.89 Tm (• Implantação de gate regulatório no comercial.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 649.89 Tm (• Revisão contratual com foco em responsabilidade e escopo.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 623.89 Tm (61-90 dias) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 601.89 Tm (• Auditoria interna completa.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 583.89 Tm (• Correção de não-conformidades.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 565.89 Tm (• Painel de KPIs operacionais e jurídicos.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 547.89 Tm (• Posicionamento comercial de alta confiança regulatória.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 521.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 495.89 Tm (13\) Apêndices práticos) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 461.89 Tm (Apêndice A: Checklist mestre de missão) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 439.89 Tm (1. Classificação da operação.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 421.89 Tm (2. Validação de requisitos ANAC.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 403.89 Tm (3. Validação de requisitos DECEA/SARPAS.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 385.89 Tm (4. Validação de homologação ANATEL.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 367.89 Tm (5. Validação de seguro RETA quando aplicável.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 349.89 Tm (6. Briefing de segurança.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 331.89 Tm (7. Execução e registro.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 313.89 Tm (8. Debrief e lições aprendidas.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 287.89 Tm (Apêndice B: Estrutura mínima de SOP) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 265.89 Tm (• Objetivo da missão.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 247.89 Tm (• Pré-condições técnicas e regulatórias.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 229.89 Tm (• Passo a passo operacional.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 211.89 Tm (• Critérios de abortagem.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 193.89 Tm (• Procedimento de emergência.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 175.89 Tm (• Registro e rastreabilidade.) Tj ET
+BT /F2 13 Tf 1 0 0 1 56.00 149.89 Tm (Apêndice C: Script comercial de autoridade) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 127.89 Tm (“Operamos com padrão regulatório completo, gestão de risco e evidência documental por) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 113.89 Tm (missão. Isso reduz exposição jurídica do contratante e aumenta previsibilidade da) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 99.89 Tm (entrega.”) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 11) Tj ET
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 25 0 R >>
+endobj
+27 0 obj
+<< /Length 3168 >>
+stream
+BT /F1 11 Tf 1 0 0 1 56.00 769.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 743.89 Tm (14\) Encerramento comercial) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 717.89 Tm (Você não precisa ser o piloto que cobra mais barato.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 699.89 Tm (Você precisa ser a operação que o mercado confia para missões críticas.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 673.89 Tm (No Brasil, o próximo salto do setor de drones será liderado por quem combina técnica,) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 659.89 Tm (conformidade e negócio.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 633.89 Tm (Essa é a sua vantagem.) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 607.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 581.89 Tm (Bônus: CTA de venda \(para página, Instagram ou anúncio\)) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 555.89 Tm (**Título:** Drone Legal Brasil: transforme sua operação em negócio profissional) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 537.89 Tm (**Oferta:** acesso ao guia completo + checklists prontos de campo + plano de) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 523.89 Tm (implementação 90 dias) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 505.89 Tm (**Promessa:** reduza risco regulatório, melhore sua taxa de fechamento e opere com padrão) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 491.89 Tm (de mercado premium) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 465.89 Tm (---) Tj ET
+BT /F2 16 Tf 1 0 0 1 56.00 439.89 Tm (Referências oficiais) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 413.89 Tm (1. ANAC - RBAC-E nº 94:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 399.89 Tm (https://www.anac.gov.br/assuntos/legislacao/legislacao-1/rbha-e-rbac/rbac/rbac-e-94) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 381.89 Tm (2. ANAC - Serviço SISANT \(mod. 15/12/2025\):) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 367.89 Tm (https://www.gov.br/pt-br/servicos/cadastrar-drone-basico) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 349.89 Tm (3. ANAC - Consulta Pública nº 09/2025 \(encerrada\):) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 335.89 Tm (https://www.gov.br/participamaisbrasil/cp-09-20251) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 317.89 Tm (4. DECEA - Portal Drone/UAS: https://www.decea.mil.br/drone/) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 299.89 Tm (5. DECEA - ICA 100-40: https://publicacoes.decea.mil.br/publicacao/ica-100-40) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 281.89 Tm (6. ANATEL - Certificação de Produtos:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 267.89 Tm (https://www.gov.br/anatel/pt-br/regulado/certificacao-de-produtos) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 249.89 Tm (7. ANATEL - Homologação de produtos:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 235.89 Tm (https://www.gov.br/pt-br/servicos/homologar-produtos-de-telecomunicacoes-anatel) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 217.89 Tm (8. Planalto - Lei nº 7.565/1986 \(CBA\):) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 203.89 Tm (https://www.planalto.gov.br/ccivil_03/leis/l7565compilado.htm) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 185.89 Tm (9. ANAC - Manual com orientação sobre RETA:) Tj ET
+BT /F1 11 Tf 1 0 0 1 56.00 171.89 Tm (https://www.gov.br/anac/pt-br/centrais-de-conteudo/aeroportos-e-aerodromos/manuais-e-cartilhas/manual-sobre-operacao-de-drones-ua-no-apoio-as-atividades-aeroportuarias) Tj ET
+BT /F1 9 Tf 1 0 0 1 56.00 30.00 Tm (DRONE LEGAL BRASIL | Página 12) Tj ET
+endstream
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 27 0 R >>
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000198 00000 n 
+0000000268 00000 n 
+0000000343 00000 n 
+0000000867 00000 n 
+0000001009 00000 n 
+0000004149 00000 n 
+0000004291 00000 n 
+0000007878 00000 n 
+0000008021 00000 n 
+0000011332 00000 n 
+0000011476 00000 n 
+0000014150 00000 n 
+0000014294 00000 n 
+0000017057 00000 n 
+0000017201 00000 n 
+0000020014 00000 n 
+0000020158 00000 n 
+0000022734 00000 n 
+0000022878 00000 n 
+0000025419 00000 n 
+0000025563 00000 n 
+0000028218 00000 n 
+0000028362 00000 n 
+0000031271 00000 n 
+0000031415 00000 n 
+0000034636 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+34780
+%%EOF
