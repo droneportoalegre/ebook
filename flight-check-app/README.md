@@ -1,14 +1,28 @@
 # DroneOps Check App
 
 Aplicativo web para checklist operacional de voo com:
+- navegacao SPA por abas: Checklist, Historico e Loja,
 - checklist por fases (pre-voo, documentacao, SARPAS, RETA, pos-voo),
 - decisao automatica GO/NO-GO,
 - consulta de clima (Open-Meteo),
 - conector para interface UAV Forecast,
 - registro operacional (piloto responsavel, cliente, log e incidentes),
 - historico com filtros (busca, status e incidente),
+- loja com catalogo, carrinho e finalizacao por WhatsApp,
+- ordenacao de catalogo por nome/preco e botao de copiar pedido,
 - historico de voos,
 - exportacao JSON e CSV.
+
+## Como editar itens da Loja
+1. Abra `data/store-items.js`.
+2. Edite o array `window.STORE_ITEMS`.
+3. Cada item aceita:
+   - `id` (unico),
+   - `nome`,
+   - `categoria` (Baterias, Helices, Seguro RETA, Drone, Drone usado, Servicos),
+   - `preco` (numero) **ou** `sobConsulta: true`,
+   - `descricao` (curta).
+4. Salve o arquivo e recarregue a pagina.
 
 ## Deploy rapido (Fase 1)
 ### Vercel (recomendado)

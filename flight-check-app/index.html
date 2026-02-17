@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DroneOps Check | Checklist de Voo</title>
-  <meta name="description" content="App de checklist e operação de voo com conector para interface UAV Forecast." />
+  <meta name="description" content="App de checklist, histórico operacional e loja para operação de drones." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -24,152 +24,206 @@
     </div>
   </header>
 
-  <main class="shell grid">
-    <section class="card span-2">
-      <h2>Dados da missão</h2>
-      <form id="missionForm" class="form-grid">
-        <label>Operador
-          <input id="operatorName" required placeholder="Nome do operador" />
-        </label>
-        <label>Piloto responsável
-          <input id="pilotResponsible" placeholder="Nome do piloto responsável" />
-        </label>
-        <label>Drone
-          <input id="droneModel" required placeholder="Ex.: DJI Mavic 3 Pro" />
-        </label>
-        <label>Cliente
-          <input id="clientName" placeholder="Nome do cliente/empresa" />
-        </label>
-        <label>Tipo de missão
-          <input id="missionType" placeholder="Ex.: inspeção, audiovisual, segurança" />
-        </label>
-        <label>Local
-          <input id="locationName" placeholder="Cidade / ponto da operação" />
-        </label>
-        <label>Latitude
-          <input id="lat" type="number" step="any" placeholder="-23.5505" />
-        </label>
-        <label>Longitude
-          <input id="lon" type="number" step="any" placeholder="-46.6333" />
-        </label>
-        <label>Data e hora
-          <input id="flightDate" type="datetime-local" />
-        </label>
-        <label>Observações
-          <input id="notes" placeholder="Restrições locais, cliente, perímetro..." />
-        </label>
-        <label>Log operacional da missão
-          <input id="flightLog" placeholder="Ex.: decolagem 14:10, troca de bateria 14:28..." />
-        </label>
-        <label class="inline-check">
-          <input id="hadIncident" type="checkbox" />
-          Houve incidente/desvio nesta missão
-        </label>
-        <label>Descrição do incidente (se houver)
-          <input id="incidentDetails" placeholder="Descreva incidente, ação tomada e resultado" />
-        </label>
-      </form>
+  <nav class="shell top-tabs" aria-label="Navegação principal">
+    <button class="tab-btn is-active" data-tab="checklist" type="button">Checklist</button>
+    <button class="tab-btn" data-tab="historico" type="button">Histórico</button>
+    <button class="tab-btn" data-tab="loja" type="button">Loja <span id="cartBadge" class="cart-badge">0</span></button>
+  </nav>
+
+  <main class="shell">
+    <section id="screen-checklist" class="tab-screen is-active">
+      <div class="grid">
+        <section class="card span-2">
+          <h2>Dados da missão</h2>
+          <form id="missionForm" class="form-grid">
+            <label>Operador
+              <input id="operatorName" required placeholder="Nome do operador" />
+            </label>
+            <label>Piloto responsável
+              <input id="pilotResponsible" placeholder="Nome do piloto responsável" />
+            </label>
+            <label>Drone
+              <input id="droneModel" required placeholder="Ex.: DJI Mavic 3 Pro" />
+            </label>
+            <label>Cliente
+              <input id="clientName" placeholder="Nome do cliente/empresa" />
+            </label>
+            <label>Tipo de missão
+              <input id="missionType" placeholder="Ex.: inspeção, audiovisual, segurança" />
+            </label>
+            <label>Local
+              <input id="locationName" placeholder="Cidade / ponto da operação" />
+            </label>
+            <label>Latitude
+              <input id="lat" type="number" step="any" placeholder="-23.5505" />
+            </label>
+            <label>Longitude
+              <input id="lon" type="number" step="any" placeholder="-46.6333" />
+            </label>
+            <label>Data e hora
+              <input id="flightDate" type="datetime-local" />
+            </label>
+            <label>Observações
+              <input id="notes" placeholder="Restrições locais, cliente, perímetro..." />
+            </label>
+            <label>Log operacional da missão
+              <input id="flightLog" placeholder="Ex.: decolagem 14:10, troca de bateria 14:28..." />
+            </label>
+            <label class="inline-check">
+              <input id="hadIncident" type="checkbox" />
+              Houve incidente/desvio nesta missão
+            </label>
+            <label>Descrição do incidente (se houver)
+              <input id="incidentDetails" placeholder="Descreva incidente, ação tomada e resultado" />
+            </label>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Status de voo</h2>
+          <div class="status-wrap">
+            <p id="goNoGo" class="status status-warn">PENDENTE</p>
+            <p id="statusReason" class="mini">Preencha checklist e clima para decisão automática.</p>
+          </div>
+          <div class="thresholds">
+            <h3>Limites configuráveis</h3>
+            <label>Vento máximo (km/h)
+              <input id="maxWind" type="number" value="30" />
+            </label>
+            <label>Rajada máxima (km/h)
+              <input id="maxGust" type="number" value="42" />
+            </label>
+            <label>Kp máximo
+              <input id="maxKp" type="number" step="0.1" value="4" />
+            </label>
+            <button id="recheckBtn" class="btn btn-secondary" type="button">Recalcular GO/NO-GO</button>
+          </div>
+        </section>
+
+        <section class="card span-2">
+          <div class="between">
+            <h2>Checklist pré-voo</h2>
+            <div>
+              <input id="newItemInput" placeholder="Adicionar item personalizado" />
+              <button id="addItemBtn" class="btn btn-ghost" type="button">Adicionar</button>
+            </div>
+          </div>
+          <ul id="checklist" class="checklist"></ul>
+        </section>
+
+        <section class="card">
+          <h2>Clima ao vivo</h2>
+          <p class="mini">Fonte: Open-Meteo (tempo real). Use junto com o UAV Forecast para decisão final.</p>
+          <button id="weatherBtn" class="btn btn-secondary" type="button">Atualizar clima</button>
+          <div id="weatherBox" class="weather-box">
+            <p>Sem dados climáticos.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Conector UAV Forecast</h2>
+          <p class="mini">Abra a interface e sincronize dados manualmente ou via JSON.</p>
+          <label>URL da interface
+            <input id="uavUrl" value="https://www.uavforecast.com/" />
+          </label>
+          <div class="uav-actions">
+            <button id="openUavBtn" class="btn btn-secondary" type="button">Abrir UAV Forecast</button>
+          </div>
+          <label>Payload JSON (opcional)
+            <textarea id="uavPayload" rows="5" placeholder='{"wind": 22, "gust": 30, "kp": 3.2, "satellites": 19}'></textarea>
+          </label>
+          <button id="syncUavBtn" class="btn btn-ghost" type="button">Sincronizar payload</button>
+          <div id="uavData" class="weather-box">
+            <p>Sem dados de integração.</p>
+          </div>
+        </section>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>Status de voo</h2>
-      <div class="status-wrap">
-        <p id="goNoGo" class="status status-warn">PENDENTE</p>
-        <p id="statusReason" class="mini">Preencha checklist e clima para decisão automática.</p>
-      </div>
-      <div class="thresholds">
-        <h3>Limites configuráveis</h3>
-        <label>Vento máximo (km/h)
-          <input id="maxWind" type="number" value="30" />
-        </label>
-        <label>Rajada máxima (km/h)
-          <input id="maxGust" type="number" value="42" />
-        </label>
-        <label>Kp máximo
-          <input id="maxKp" type="number" step="0.1" value="4" />
-        </label>
-        <button id="recheckBtn" class="btn btn-secondary" type="button">Recalcular GO/NO-GO</button>
-      </div>
-    </section>
-
-    <section class="card span-2">
-      <div class="between">
-        <h2>Checklist pré-voo</h2>
-        <div>
-          <input id="newItemInput" placeholder="Adicionar item personalizado" />
-          <button id="addItemBtn" class="btn btn-ghost" type="button">Adicionar</button>
-        </div>
-      </div>
-      <ul id="checklist" class="checklist"></ul>
-    </section>
-
-    <section class="card">
-      <h2>Clima ao vivo</h2>
-      <p class="mini">Fonte: Open-Meteo (tempo real). Use junto com o UAV Forecast para decisão final.</p>
-      <button id="weatherBtn" class="btn btn-secondary" type="button">Atualizar clima</button>
-      <div id="weatherBox" class="weather-box">
-        <p>Sem dados climáticos.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Conector UAV Forecast</h2>
-      <p class="mini">Abra a interface e sincronize dados manualmente ou via JSON.</p>
-      <label>URL da interface
-        <input id="uavUrl" value="https://www.uavforecast.com/" />
-      </label>
-      <div class="uav-actions">
-        <button id="openUavBtn" class="btn btn-secondary" type="button">Abrir UAV Forecast</button>
-      </div>
-      <label>Payload JSON (opcional)
-        <textarea id="uavPayload" rows="5" placeholder='{"wind": 22, "gust": 30, "kp": 3.2, "satellites": 19}'></textarea>
-      </label>
-      <button id="syncUavBtn" class="btn btn-ghost" type="button">Sincronizar payload</button>
-      <div id="uavData" class="weather-box">
-        <p>Sem dados de integração.</p>
+    <section id="screen-historico" class="tab-screen">
+      <div class="grid">
+        <section class="card span-3">
+          <div class="between">
+            <h2>Histórico de voos</h2>
+            <button id="exportCsvBtn" class="btn btn-secondary" type="button">Exportar CSV</button>
+          </div>
+          <div class="history-filters">
+            <input id="historySearch" placeholder="Buscar por ID, operador, piloto, drone, cliente ou local" />
+            <select id="filterStatus">
+              <option value="">Todos os status</option>
+              <option value="GO">GO</option>
+              <option value="NO-GO">NO-GO</option>
+              <option value="PENDENTE">PENDENTE</option>
+            </select>
+            <select id="filterIncident">
+              <option value="">Com ou sem incidente</option>
+              <option value="com">Somente com incidente</option>
+              <option value="sem">Somente sem incidente</option>
+            </select>
+            <button id="clearFiltersBtn" class="btn btn-ghost" type="button">Limpar filtros</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID missão</th>
+                <th>Data</th>
+                <th>Operador</th>
+                <th>Piloto</th>
+                <th>Drone</th>
+                <th>Cliente</th>
+                <th>Local</th>
+                <th>Status</th>
+                <th>Incidente</th>
+                <th>Vento</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </section>
       </div>
     </section>
 
-    <section class="card span-2">
-      <div class="between">
-        <h2>Histórico de voos</h2>
-        <button id="exportCsvBtn" class="btn btn-secondary" type="button">Exportar CSV</button>
+    <section id="screen-loja" class="tab-screen">
+      <div class="grid">
+        <section class="card span-2">
+          <div class="between">
+            <h2>Loja de operação</h2>
+            <p class="mini">Edite itens em <code>data/store-items.js</code></p>
+          </div>
+          <div class="store-filters">
+            <select id="storeCategoryFilter">
+              <option value="">Todas as categorias</option>
+            </select>
+            <input id="storeSearch" placeholder="Buscar item por nome" />
+            <select id="storeSort">
+              <option value="name_asc">Ordenar: Nome (A-Z)</option>
+              <option value="price_asc">Preço: menor primeiro</option>
+              <option value="price_desc">Preço: maior primeiro</option>
+            </select>
+          </div>
+          <div id="storeCatalog" class="store-grid"></div>
+        </section>
+
+        <section class="card">
+          <h2>Carrinho</h2>
+          <div id="cartItems" class="cart-items">
+            <p class="mini">Carrinho vazio.</p>
+          </div>
+          <p class="cart-total">Total: <strong id="cartTotal">R$ 0,00</strong></p>
+          <label>Observações para atendimento
+            <textarea id="cartObs" rows="3" placeholder="Ex.: entrega em Porto Alegre, nota fiscal, urgência..."></textarea>
+          </label>
+          <div class="cart-actions">
+            <button id="copyOrderBtn" class="btn btn-secondary" type="button">Copiar pedido</button>
+            <button id="clearCartBtn" class="btn btn-ghost" type="button">Limpar carrinho</button>
+            <button id="checkoutWhatsappBtn" class="btn btn-primary" type="button">Finalizar no WhatsApp</button>
+          </div>
+        </section>
       </div>
-      <div class="history-filters">
-        <input id="historySearch" placeholder="Buscar por ID, operador, piloto, drone, cliente ou local" />
-        <select id="filterStatus">
-          <option value="">Todos os status</option>
-          <option value="GO">GO</option>
-          <option value="NO-GO">NO-GO</option>
-          <option value="PENDENTE">PENDENTE</option>
-        </select>
-        <select id="filterIncident">
-          <option value="">Com ou sem incidente</option>
-          <option value="com">Somente com incidente</option>
-          <option value="sem">Somente sem incidente</option>
-        </select>
-        <button id="clearFiltersBtn" class="btn btn-ghost" type="button">Limpar filtros</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID missão</th>
-            <th>Data</th>
-            <th>Operador</th>
-            <th>Piloto</th>
-            <th>Drone</th>
-            <th>Cliente</th>
-            <th>Local</th>
-            <th>Status</th>
-            <th>Incidente</th>
-            <th>Vento</th>
-          </tr>
-        </thead>
-        <tbody id="historyBody"></tbody>
-      </table>
     </section>
   </main>
 
+  <script src="./data/store-items.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
