@@ -28,8 +28,8 @@ Aplicativo web para checklist operacional de voo com:
 4. Salve o arquivo e recarregue a pagina.
 
 ## E-book em PDF (Vercel)
-- Arquivo publicado: `assets/Drone-Legal-Brasil-v4.pdf`
-- Acesso direto apos deploy: `https://SEU-DOMINIO/assets/Drone-Legal-Brasil-v4.pdf`
+- Arquivo publicado: `assets/Drone-Legal-Brasil-v5.pdf`
+- Acesso direto apos deploy: `https://SEU-DOMINIO/assets/Drone-Legal-Brasil-v5.pdf`
 - Botao no app: `E-book PDF` (topo da tela).
 
 ## Login e nuvem (Supabase)
