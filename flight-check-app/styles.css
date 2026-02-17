@@ -159,12 +159,14 @@ input, textarea, select {
 textarea { resize: vertical; }
 
 .btn {
+  display: inline-block;
   border: 0;
   border-radius: 999px;
   padding: 0.6rem 0.95rem;
   font: 700 0.85rem/1 "Barlow", sans-serif;
   letter-spacing: 0.03em;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn-primary {

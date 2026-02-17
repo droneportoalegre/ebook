@@ -22,10 +22,15 @@ Aplicativo web para checklist operacional de voo com:
 3. Cada item aceita:
    - `id` (unico),
    - `nome`,
-   - `categoria` (Baterias, Helices, Seguro RETA, Drone, Drone usado, Servicos),
+   - `categoria` (Baterias, Helices, Seguro RETA, Drones, Drones usados, Servicos),
    - `preco` (numero) **ou** `sobConsulta: true`,
    - `descricao` (curta).
 4. Salve o arquivo e recarregue a pagina.
+
+## E-book em PDF (Vercel)
+- Arquivo publicado: `assets/ebook-legislacao-drones-brasil-venda.pdf`
+- Acesso direto apos deploy: `https://SEU-DOMINIO/assets/ebook-legislacao-drones-brasil-venda.pdf`
+- Botao no app: `E-book PDF` (topo da tela).
 
 ## Login e nuvem (Supabase)
 1. Edite `data/supabase-config.js` e preencha:
